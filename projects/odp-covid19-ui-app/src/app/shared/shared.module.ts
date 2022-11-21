@@ -14,6 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { FooterViewComponent } from './footer/footer-view/footer-view.component';
+import { ExternalLinkComponent } from './external-link/external-link.component';
 
 
 
@@ -39,7 +41,9 @@ import { RouterModule } from '@angular/router';
     // HighlightsComponent,
     // MonkeypoxComponent
     HeaderViewComponent,
-    MenuComponent
+    MenuComponent,
+    FooterViewComponent,
+    ExternalLinkComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +64,9 @@ import { RouterModule } from '@angular/router';
   ], exports: [
     MobileMenuComponent,
     HeaderViewComponent,
-    MenuComponent
+    MenuComponent,
+    FooterViewComponent,
+    ExternalLinkComponent
   ]
 })
 export class SharedModule { }

@@ -91,6 +91,8 @@ import { HeaderViewComponent } from './shared/header/header-view/header-view.com
 import { MenuComponent } from './shared/menu/menu.component';
 import { MobileMenuComponent } from './shared/mobile-menu/mobile-menu.component';
 import { SharedModule } from './shared/shared.module';
+import { FeaturesModule } from './features/features.module';
+import { OdpCovid19UiModule } from './core/odp-covid19-ui.module';
 
 // // const customThemes = [labshare];
 
@@ -110,7 +112,7 @@ let APP_CONF = {
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent,
+    // AboutComponent,
     // // HomepageComponent,
     // // FeedbackComponent,
     // // SummaryComponent,
@@ -133,7 +135,8 @@ let APP_CONF = {
     // MenuComponent
   ],
   imports: [
-    SharedModule,
+    // SharedModule,
+    FeaturesModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -149,16 +152,17 @@ let APP_CONF = {
     // FormlyModule.forRoot(),
     // // NgxJsonViewerModule,
     // FormlyBootstrapModule,
-    MatTableModule,
-    MatListModule,
-    MatButtonModule,
+    
+    // MatTableModule,
+    // MatListModule,
+    // MatButtonModule,
     // FormsModule,
-    // // OdpCovid19UiModule.forRoot(APP_CONF),
+    OdpCovid19UiModule.forRoot(),
     // // NgxDaterangepickerMd.forRoot(),
     // ClipboardModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatExpansionModule,
+    // MatSidenavModule,
+    // MatIconModule,
+    // MatExpansionModule,
     // BaseModule,
     // TraceModule,
     // AnimalModelsModule,

@@ -1,0 +1,46 @@
+<app-header-view></app-header-view>
+<app-menu></app-menu>
+<div class="container">
+  <div class="row py-3 dataset mb-5 justify-content-center px-3">
+    <div class="col-12 p-0 py-3">
+      <p><a href="https://opendata.ncats.nih.gov/covid19/index.html">Home </a> > Variant Therapeutic Assay Overview</p>
+    </div>
+    <div class="col-12 col-md-12 p-0">
+      <h2>Therapeutic Assay Overview</h2>
+      <i>Updated: 07/21/21</i>
+      <img class="int-image py-4" width="1250" src="./assets/assayInterpretation.png" alt="" />
+      <p class="pt-4 pb-1">
+        The list below summarizes the most commonly used assays to measure the relative activity of therapeutics against
+        SARS-CoV-2 variant strains. These pages aim to highlight the relative strengths and weaknesses of each assay, as
+        well as the limitations on what these results can predict about potential clinical effects.
+      </p>
+
+      <table class="table mt-3 mb-0 table-striped assay-table">
+        <thead>
+          <tr class="down-header">
+            <th style="border: 0;  border-bottom: 1px solid #cdd0d4; width: 25%" scope="col" sortable="variant">
+              Assay Name
+            </th>
+            <th style="border: 0;  border-bottom: 1px solid #cdd0d4; width: 75%" scope="col">
+              Experimental Methodology
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let assay of assays; let i = index">
+            <tr>
+              <!--Must Pass Data ID to Load Correct Information on Assay Single Item-->
+              <td style="width: 25%">
+                <a [routerLink]="['/assays', assay.id, assay.category]">{{
+                  assay.category ? assay.category : 'N/A'
+                }}</a>
+              </td>
+              <td style="width: 75%">{{ assay.name ? assay.name : 'N/A' }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-footer-view [showCC]="true"></app-footer-view>

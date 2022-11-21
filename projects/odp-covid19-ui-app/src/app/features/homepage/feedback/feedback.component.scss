@@ -1,0 +1,25 @@
+.feedback-container {
+    padding: 4.5vh 0px;
+    background: rgb(2,100,120);
+    background: linear-gradient(90deg, rgba(2,100,120,1) 50%, rgba(1,65,77,1) 50%);
+
+    .feedback-message {
+        color: white ;
+        .intro-headline {
+            border-left: 10px solid #00b1d5;
+        }
+    }
+
+    .feedback-form {
+        input, textarea, button {
+            border-radius: 0;
+        }
+
+        [type="submit"] {
+            background: #e44b3e;
+            border: 0
+        }
+
+
+    }
+}

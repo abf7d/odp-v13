@@ -1,0 +1,54 @@
+<app-header-view></app-header-view>
+<app-menu></app-menu>
+<div class="container">
+  <div class="row py-3 px-3">
+    <div class="col-12 p-0 py-3">
+      <p>
+        <a href="https://opendata.ncats.nih.gov/covid19/index.html">Home </a> >
+        <a [routerLink]="['/assays']"> Variant Therapeutic Assay Overview</a> >
+        {{ assayName }}
+      </p>
+    </div>
+    <div class="col-12">
+      <div class="row">
+        <div class="col-2" *ngIf="assayDetail.assayIconUrl">
+          <img src="{{ assayDetail.assayIconUrl }}" class="img-fluid" alt="" />
+        </div>
+        <div class="col-10">
+          <h1>{{ assayName }}</h1>
+          <i>{{ assayDetail.dateUpdated }}</i>
+        </div>
+      </div>
+
+      <div class="row px-3 mt-5">
+        <section class="mt-4" *ngIf="assayDetail.assayBackground">
+          <h4>Background</h4>
+          <p [innerHTML]="assayDetail.assayBackground | linebreak: '_LINE_BREAK_'"></p>
+        </section>
+        <section class="my-4" *ngIf="assayDetail.assayHowItWorks">
+          <h4>How it works</h4>
+          <p [innerHTML]="assayDetail.assayHowItWorks | linebreak: '_LINE_BREAK_'"></p>
+        </section>
+        <section *ngIf="assayDetail.assayFigureUrl">
+          <img src="{{ assayDetail.assayFigureUrl }}" class="img-fluid" alt="" />
+          <h5>{{ assayDetail.assayFigureLegend }}</h5>
+        </section>
+        <section class="my-4" *ngIf="assayDetail.assayInterpretation">
+          <h4>Interpretation</h4>
+          <p [innerHTML]="assayDetail.assayInterpretation | linebreak: '_LINE_BREAK_'"></p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid assay-limitation mb-5" *ngIf="assayDetail.assayLimitations">
+  <div class="container">
+    <div class="row py-4 px-3 ">
+      <div class="col-12">
+        <h4>Assay Limitations</h4>
+        <p class="pt-3" [innerHTML]="assayDetail.assayLimitations | linebreak: '_LINE_BREAK_'"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer-view [showCC]="false"></app-footer-view>

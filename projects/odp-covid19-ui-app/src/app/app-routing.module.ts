@@ -18,6 +18,9 @@ import {RouterModule, Routes} from '@angular/router';
 // import {TraceMutationComponent} from './pages/variant/trace/trace-mutation/trace-mutation.component';
 // import {TraceAboutComponent} from './pages/variant/trace/trace-about/trace-about.component';
 import {AboutComponent} from './features/about/about.component';
+import { AssayComponent } from './features/assay/assay/assay.component';
+import { AssayOverviewComponent } from './features/assay/overview/overview.component';
+import { HomepageComponent } from './features/homepage/homepage.component';
 import { MobileMenuComponent } from './shared/mobile-menu/mobile-menu.component';
 // import {HighlightsComponent} from './pages/highlights/highlights.component';
 // import {AnimalModelsComponent} from './pages/variant/animal-models/animal-models.component';
@@ -45,10 +48,10 @@ const routes: Routes = [
     ]
   },
   
-  // {
-  //   path: '',
-  //   component: HomepageComponent
-  // },
+  {
+    path: '',
+    component: HomepageComponent
+  },
   // {
   //   path: 'summary',
   //   component: MobileMenuComponent,
@@ -163,16 +166,16 @@ const routes: Routes = [
   //     }
   //   ]
   // },
-  // {
-  //   path: 'assays',
-  //   component: MobileMenuComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       component: AssayComponent
-  //     }
-  //   ]
-  // },
+  {
+    path: 'assays',
+    component: MobileMenuComponent,
+    children: [
+      {
+        path: '',
+        component: AssayComponent
+      }
+    ]
+  },
   // {
   //   path: 'activity',
   //   component: ActivityComponent
@@ -185,16 +188,16 @@ const routes: Routes = [
   //   path: 'activity/:variant',
   //   component: ActivityComponent
   // },
-  // {
-  //   path: 'assays/:id/:assay',
-  //   component: MobileMenuComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       component: AssayOverviewComponent
-  //     }
-  //   ]
-  // },
+  {
+    path: 'assays/:id/:assay',
+    component: MobileMenuComponent,
+    children: [
+      {
+        path: '',
+        component: AssayOverviewComponent
+      }
+    ]
+  },
   // {
   //   path: 'variant-about',
   //   component: MobileMenuComponent,

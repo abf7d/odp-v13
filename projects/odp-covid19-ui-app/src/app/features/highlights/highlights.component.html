@@ -1,0 +1,380 @@
+<app-header-view></app-header-view>
+<app-menu></app-menu>
+<div id="background">
+  <div class="container" id="highlights_container">
+    <div class="col-12 p-0 pt-3">
+      <p><a href="https://opendata.ncats.nih.gov/covid19/index.html">Home </a> > Resources > Highlights</p>
+    </div>
+    <div class="row">
+      <div class="col-md-12 article-title">
+        <a fragment="blockage" (click)="navigateToSection('blockage')"
+          >Blockage of the cellular waste disposal system can prevent cell death in SARS-CoV-2 infected cells</a
+        >
+      </div>
+      <div class="col-md-12 article-title">
+        <a fragment="infection" (click)="navigateToSection('infection')"
+          >Drug repurposing to block SARS-CoV-2 infection?</a
+        >
+      </div>
+      <div class="col-md-12 article-title">
+        <a fragment="covid19_ace2" (click)="navigateToSection('covid19_ace2')">COVID-19 and human ACE2</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><hr /></div>
+    </div>
+    <div><a name="blockage"></a></div>
+    <div class="row">
+      <div class="col-md-12 h4">
+        Blockage of the cellular waste disposal system can prevent cell death in SARS-CoV-2 infected cells
+      </div>
+      <div class="col-md-12 text-muted">
+        Kirill Gorshkov,
+        <a href="https://ncats.nih.gov" target="_blank">NCATS</a>
+        <br />06.25.2020
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        We are currently dealing with a viral pandemic called COVID-19, caused by the SARS-CoV-2 virus. Despite global
+        efforts to deal with this virus through mitigation, physical distancing, and common sense measures, many
+        countries are still suffering from an increasing number of cases, hospitalizations and unfortunately, deaths. At
+        NCATS, we are utilizing our strengths in assay development and translational science research to rapidly
+        establish a toolkit for screening small molecules and biologics that may prevent viral infection. This toolkit
+        will also allow us to understand the biology of this virus, and how it interacts with human cells.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        In the course of our research, we have reported that SARS-CoV-2 may be particularly susceptible to small
+        molecules that interrupt the host cell’s waste disposal system, a process known as autophagy (1). Healthy cells
+        experience some wear and tear on their components over time, and recycle waste materials in lysosomes. This
+        process involves many different proteins that work together to capture and compartmentalize cellular waste - as
+        well as invading pathogens like bacteria and viruses - and degrade them before they can become a problem.
+        Persistent blockage of cellular autophagy causes real problems for cellular health and function and, in some
+        cases, can lead to cell death.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Coronaviruses such as SARS-CoV-2 have been found to hijack the autophagy machinery of host cells, namely the
+        compartments called autophagosomes, endosomes, and lysosomes. As a result, the host cell cannot dispose of the
+        invader, while the virus uses these compartments as a platform for its own replication and survival.
+        <strong>Figure 1</strong>, from our recently published preprint, illustrates how a virus can use the cell’s own
+        autophagy machinery to enter and replicate.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><img src="./assets/3-1.png" /></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <strong>Figure 1. Illustration of autophagy inhibitors and their blockade of viral infection.</strong>
+        <strong>(A)</strong> Healthy cells have normal autophagic flux and the endocytic pathway is functional.
+        <strong>(B)</strong> Autophagy inhibitor treatment in healthy cells causes a blockade of normal fusion processes
+        and a buildup of endosomes and autophagosomes. <strong>(C)</strong> In healthy cells, viral infection through
+        endocytosis leads to the release of viral RNA after endosome lysosome fusion. Similarly, autophagy of viral
+        particles may result in formation of viral autophagosomes but lysosome fusion would be blocked by the virus
+        (orange X). Dotted arrow indicates a possible, but unverified event of viral RNA release from autophagosomes.
+        <strong>(D)</strong> Autophagy inhibitors can block steps (red Xs) within the viral life cycle including at the
+        early steps of endocytosis, the fusion of endosomes with the lysosome, to prevent the release of viral RNA and
+        subsequent cell death.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Paradoxically, we found that treatment with small molecule drugs that inhibit the cell’s normal autophagic
+        process may actually prevent the virus from replicating within cells, leading to reduced host cell death. In
+        conjunction with our collaborators at Southern Research Institute (SRI), who have worked tirelessly in their
+        biosafety level 3 facility, we tested a panel of autophagy inhibitors in the context of live virus infection. We
+        identified several compounds that were able to block cell death induced by SARS-CoV-2 infection (known as the
+        cytopathic effect) in the Vero-E6 African Green monkey kidney cell line. These particular cells express high
+        levels of the ACE2 receptor that the virus uses for cell entry. The assay we used measures host cell (Vero-E6)
+        viability after 72 hours of SARS-CoV-2 infection, so small molecules capable of reducing the amount of cell
+        death may be adversely affecting the virus in some way.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        We observed that Vero-E6 cells treated with autophagy inhibitors (including chloroquine and hydroxychloroquine)
+        led to a considerable reduction in host cell death. Our hypothesis is that by blocking cell autophagy, we were
+        able to prevent the virus from replicating within the host cells, leading to reduced cell death. We confirmed
+        these compounds’ inhibitory effects on autophagy by screening three other human cell lines for markers of
+        autophagy, including the protein LC3B, and by using a dye that accumulates in acidic cellular compartments. We
+        showed that the potencies of these compounds as inhibitors of autophagy matched up closely with the potencies
+        observed in the prevention of SARS-CoV-2-mediated cell death (<strong>Figures 2 & 3</strong>).
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><img src="./assets/3-2.png" /></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <strong>Figure 2. Autophagy inhibition assay using LC3B immunostaining in Vero-E6 cells.</strong> Image montage
+        of DMSO, CQ, HCQ, clomipramine, mefloquine, ROC-325, and hycanthone (L to R) stained with Hoechst 33342 (cyan)
+        and LC3B (magenta). Scale bar, 25 µm.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><img src="./assets/3-3.png" /></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <strong>Figure 3. Autophagy inhibition assay using LysoTracker Deep Red staining in Vero-E6 cells.</strong>
+        Image montage of DMSO, CQ, HCQ, clomipramine, mefloquine, ROC-325, and hycanthone (L to R) stained with Hoechst
+        33342 (cyan), HCS Cell Mask Green (yellow), and LysoTracker Deep Red (magenta). Scale bar, 25 µm.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Encouragingly, some of these drugs are already FDA-approved, providing the potential for repurposing to fight
+        COVID-19. Autophagy inhibitors have been shown to demonstrate antiviral activity, including Zika and Ebola, and
+        while much work remains to better characterize autophagy in the context of viral infection, this work has
+        highlighted some promising leads and target pathways for potential use in the fight against SARS-CoV-2.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        1. Gorshkov et al. (2020) The SARS-CoV-2 cytopathic effect is blocked with autophagy modulators. bioRxiv doi:
+        <app-external-link
+          [url]="'https://doi.org/10.1101/2020.05.16.091520'"
+          [text]="'https://doi.org/10.1101/2020.05.16.091520'"
+        ></app-external-link>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr />
+        <br />
+      </div>
+    </div>
+    <div><a name="infection"></a></div>
+    <div class="row">
+      <div class="col-md-12 h4">Drug repurposing to block SARS-CoV-2 infection?</div>
+      <div class="col-md-12 text-muted">
+        Quinlin Hanson,
+        <a href="https://ncats.nih.gov" target="_blank">NCATS</a>
+        <br />05.26.2020
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        Here at NCATS we’ve been actively developing assays to address many scientific questions about COVID-19. One
+        such question is whether we can block or impair the ability of SARS-CoV-2 to infect cells, either through drug
+        repurposing or developing new therapeutics. First, let’s discuss how this virus infects host cells.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        We briefly covered this in a previous post, but we’ll recap the first step in SARS-CoV-2 infection here. The
+        outer surface of the SARS-CoV-2 viral capsid is coated with Spike proteins, which contain receptor binding
+        domains (RBD) that bind to the ACE2 receptor protein on the surface of human cells (<strong>Figure 1</strong>).
+        This is the first step in viral entry. Blocking the interaction between the SARS-CoV-2 Spike protein RBD and
+        human ACE2 is a potential therapeutic approach for treating COVID-19, because if the virus can’t bind to the
+        surface of human cells, it can’t enter and be replicated.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><img src="./assets/2-1.png" /></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><strong>Figure 1</strong>: Schematic showing stages of SARS-CoV-2 viral entry</div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        In order to test Spike/ACE2 disruption as a potential therapeutic approach for COVID-19, we first needed to
+        develop an assay capable of measuring interactions between the Spike RBD and human ACE2. We used a technique
+        called
+        <a
+          href="https://www.perkinelmer.com/lab-products-and-services/application-support-knowledgebase/alphalisa-alphascreen-no-wash-assays/alphalisa-alphascreen-no-washassays-main.html"
+          target="_blank"
+          >AlphaLISA</a
+        >, which was developed by PerkinElmer, to measure RBD interactions with ACE2. AlphaLISA is a proximity assay
+        that uses a pair of donor and acceptor beads to measure interaction (or disruption) of two tagged
+        proteins/targets of interest. When the donor bead is excited by light at 680 nm it converts ambient oxygen to
+        singlet oxygen. If an acceptor bead is in close proximity to the singlet oxygen, it emits a luminescent signal
+        at 615 nm (and when the two proteins are apart, there is no signal). More information about the AlphaLISA
+        technology and related assays can be found in this
+        <a href="https://pubmed.ncbi.nlm.nih.gov/27316989/" target="_blank">NCATS review</a>.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        For this assay we used Protein A-labeled Acceptor beads, which recognize Fc tags, and Streptavidin-labeled Donor
+        beads, which recognize biotin. We used a recombinant SARS-CoV-2 Spike protein RBD fused to a Fc tag (RBD-Fc,
+        Sino Biological, Catalog # 40592-V02H) and recombinant soluble human ACE2 fused to a biotinylated Avi tag
+        (ACE2-Avi, Acro Biosystems, Catalog # AC2-H82E6) to model a simplified Spike RBD-ACE2 interaction system. The
+        assay we designed can be simplified into two steps:
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ul>
+          <li>1) Mix RBD-Fc and ACE2-Avi together to allow them to interact</li>
+          <li>
+            2) Add Protein A Acceptor beads (recognizes RBD-Fc) and Streptavidin Donor beads (recognizes ACE2-Avi)
+          </li>
+          <li>3) Excite at 680 nm and measure luminescence at 615 nm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        By measuring the luminescent signal, we can infer the degree to which the recombinant RBD and ACE2 are
+        interacting. A stronger luminescent signal indicates a higher degree of interaction between SARS-CoV-2 RBD and
+        human ACE2. A weaker luminescent signal indicates the RBD-ACE2 interaction is being disrupted. From this point
+        we can add test agents to our RBD-ACE2 mix and determine if any disrupt the RBD-ACE2 interaction.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        It is important to note that every assay has limitations, and in the case of AlphaLISA, compounds that interfere
+        with the AlphaLISA chemistry can cause a decrease in luminescent signal, mimicking the effect seen with
+        disruption of the proteins; these false positives are known as “artifacts”. To filter these out, we use a
+        control AlphaLISA assay called TruHits, which uses a set of acceptor and donor beads that directly interact,
+        without any SARS-CoV-2 RBD or ACE2 added. Lower luminescence in a TruHits assay indicates an agent is
+        non-specifically interfering with the AlphaLISA technology, rather than the RBD:ACE2 interaction we’re
+        interested in. Figure 2 demonstrates how false positives like biotin appear in this assay pair, compared to a
+        potential true positive like GSK744. More information about types of assay artifacts and their impact on
+        high-throughput screening can be found in this
+        <a href="https://www.ncbi.nlm.nih.gov/books/NBK326708/" target="_blank">NCATS Assay Guidance Manual chapter</a>.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"><img src="./assets/2-2.png" /></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <strong>Figure 2</strong>. Top: Dose-response curve for SARS-CoV-2 RBD binding to ACE2 AlphaLISA assay (magenta)
+        and TruHits counter assay (blue) in the presence of biotin, a compound known to disrupt the AlphaLISA technology
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Bottom: Dose response curve for SARS-CoV-2 RBD binding to ACE2 AlphaLISA assay (magenta) and TruHits counter
+        assay (blue) in the presence of GSK744 (cabotegravir)
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        So far, we’ve used this assay to screen all FDA-approved drugs (the
+        <a href="https://ncats.nih.gov/expertise/preclinical/npc" target="_blank">NCATS Pharmaceutical Collection</a>),
+        as well as a collection of anti-infectious agents for potency in disrupting RBD-ACE2 interactions (3,384
+        compounds in total); these entire datasets were made publicly available here (
+        <a href="https://opendata.ncats.nih.gov/covid19/assay?aid=1" target="_blank">RBD:ACE2</a>) and here (<a
+          href="https://opendata.ncats.nih.gov/covid19/assay?aid=2"
+          target="_blank"
+          >TruHits</a
+        >) immediately following data processing. Most of the hits we identified also showed equivalent activity in the
+        TruHits assay, suggesting a large portion were artifacts. Though the remaining candidates had weaker activity,
+        they still warrant further investigation. Importantly, we are also using this assay to validate antibodies and
+        proteins that can prevent Spike RBD from binding to ACE2 to select the best candidates for further testing.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr />
+        <br />
+      </div>
+    </div>
+
+    <div><a name="covid19_ace2"></a></div>
+    <div class="row">
+      <div class="col-md-12 h4">COVID-19 and human ACE2</div>
+      <div class="col-md-12 text-muted">
+        <a href="https://ncats.nih.gov/staff/hallma" target="_blank">Matthew Hall</a>,
+        <a href="https://ncats.nih.gov" target="_blank">NCATS</a>
+        <br />05.08.2020
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Along with screening data, we aim to share interesting data and observations we make around COVID19 science –
+        some large and some small. Many of us have individual scientific questions– a single experiment to answer a
+        question that doesnʼt fit into a larger research narrative. Data portals and open lab books are one way to share
+        interesting data.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        For example, weʼve been working with a range of SARS-CoV-2 spike protein constructs in a number of assay
+        development projects. This is because we know that the SARS-CoV-2 spike protein has a receptor binding domain
+        (RBD) that binds to human/host ACE2 on the surface of cells, and is the first step for viral entry. ACE2
+        (angiotensin-converting enzyme), as the name suggests, is an enzyme that is a component of the renin-angiotensin
+        system. Itʼs job is to convert angtiotensin II (inflammatory mediator) into angiotensin 1-7 (considered to be
+        anti inflammatory), and under normal circumstances ACE2 plays a major anti-inflammatory role.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Following binding by SARS-CoV-2, ACE2 internalizes, carrying the virus with it. In doing so, ACE2 enzymatic
+        activity is lost at the cell surface. But we wondered whether spike protein binding to ACE2 directly inhibited
+        activity, or whether in fact it might activate ACE2.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        To test this, we sent a recombinant spike protein (SARS-CoV-2 Spike S1-His, Sino Biological, Cat 40591-V08H) to
+        Reaction Biology (Malvern, PA) and asked them to test its effect on ACE2 biochemical activity. RB scientists use
+        a standard protease assay protocol, where a fluorogenic peptide substrate (MCA-YVADAPK(Dnp)-OH, MCA:
+        7-Methoxycoumarin-4-yl)acetyl) is added with enzyme, and as peptide substrate is cleaved, a fluorophore is
+        released, and fluorescence measured every 5 min for 2 h. As such, inhibitors would reduce kinetic activity of
+        enzyme, resulting in lower fluorescent signal. The positive control small molecule ACE2 inhibitor is MLN-4760
+        (developed by Millennium Pharmaceuticals, and you can read more about it here
+        https://www.ncbi.nlm.nih.gov/pubmed/14754895). As expected, MLN-4760 potently inhibited ACE2 biochemical
+        activity, confirming the enzyme if functioning and the assay is 'inhibitable'.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><img src="./assets/1-1.png" style="width:600px" /></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <strong>Left:</strong> Dose-response curve for ACE2 biochemical activity in the presence of the positive control
+        inhibitor MLN-4760.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        When we looked at the effect of SARS-CoV-2 Spike protein, we found that it did NOT inhibit ACE2 biochemical
+        activity. In fact, the SARS-CoV-2 Spike S1-His protein appears to activate ACE2 activity at higher
+        concentrations (high nM and 1 uM). We were certainly surprised. Are these concentrations of spike protein
+        physiologically relevant? Possibly in extracellular space in the lung epithelium. Could this be relevant given
+        that ACE2 is internalized, or is there a consequence of activating ACE2 in the intracellular space? We donʼt
+        know. But we hope this piece of data stimulates discussion and thought about the impact of SARS-CoV-2 spike
+        protein and its interaction with ACE2 - a critical host enzyme for SARS-CoV-2.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 h6">GRAPHS</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6"><img src="./assets/1-2.png" style="width:400px" /></div>
+      <div class="col-md-"><img src="./assets/1-3.png" style="width:400px" /></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <strong>Left:</strong> Raw activity-over-time fluorescence data for the ACE2 biochemical assay. Concentrations
+        of SARS-CoV-2 Spike S1-His added are shown in legend. <strong>Right:</strong> Dose-response curve for ACE2
+        biochemical activity in the presence of SARS-CoV-2 Spike S1-His protein.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Credit to Ying Fu and Alex Renn at NCATS, and Haiching Ma and Kayleigh McGovern-Gooch at Reaction Biology for
+        design and execution of this work.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><br /><br /></div>
+    </div>
+  </div>
+</div>
+<app-footer-view [showCC]="true"></app-footer-view>

@@ -1,0 +1,30 @@
+a {
+    cursor: pointer;
+    color: #005ea2;
+    text-decoration: underline;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+img{
+    padding:0px;
+}
+#highlights_container .article-title {
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+    color: #005ea2;
+    text-decoration: underline;
+}
+#background{
+    background-color: white;
+}
+div{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+app-external-link {
+    cursor: pointer;
+    color: #005ea2;
+    text-decoration: underline;
+}

@@ -51,10 +51,10 @@ import {
   BaseUIServicesModule,
   AuthInterceptor
 } from '@labshare/base-ui-services';
-// import {MatTableModule} from '@angular/material/table';
-// import {MatListModule} from '@angular/material/list';
-// import {MatButtonModule} from '@angular/material/button';
-// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
+import {MatListModule} from '@angular/material/list';
+import {MatButtonModule} from '@angular/material/button';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import {HomepageComponent} from './pages/homepage/homepage.component';
 // import {FeedbackComponent} from './feedback/feedback.component';
 // // import {OdpCovid19UiModule} from '@labshare/odp-covid19-ui';
@@ -68,9 +68,9 @@ import {
 // import {VariantAboutComponent} from './pages/variant/about/about.component';
 // import {VariantGlossaryComponent} from './pages/variant/glossary/glossary.component';
 // // import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
-// import {MatSidenavModule} from '@angular/material/sidenav';
-// import {MatIconModule} from '@angular/material/icon';
-// import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatExpansionModule} from '@angular/material/expansion';
 // import {FilterByDrugclassPipe} from './pipes/filter-by-drugclass.pipe';
 // import {HeatmapComponent} from './pages/variant/summary/heatmap/heatmap.component';
 // import {MobileMenuComponent} from './layouts/mobile-menu/mobile-menu.component';
@@ -87,17 +87,14 @@ import {
 // import {HighchartsChartModule} from 'highcharts-angular';
 // import {MonkeypoxComponent} from './pages/monkeypox/monkeypox.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { HeaderViewComponent } from './header/header-view/header-view.component';
-import { MenuComponent } from './menu/menu.component';
+import { HeaderViewComponent } from './shared/header/header-view/header-view.component';
+import { MenuComponent } from './shared/menu/menu.component';
+import { MobileMenuComponent } from './shared/mobile-menu/mobile-menu.component';
 
 // // const customThemes = [labshare];
 
 function initialize( http: HttpClient,config: ConfigService, auth: AuthService): () => Promise<any> {
   return async () => {
-    // return null;
-    http.get('~/config/config.json').subscribe(x => {
-      console.log(x);
-    })
     return initializeFromUrl(http, config, auth, `./config/config.json`);
   };
 }
@@ -125,7 +122,7 @@ let APP_CONF = {
     // VariantGlossaryComponent,
     // FilterByDrugclassPipe,
     // HeatmapComponent,
-    // MobileMenuComponent,
+    MobileMenuComponent,
     // RelatedResourcesComponent,
     AboutComponent,
     // HighlightsComponent,
@@ -136,7 +133,7 @@ let APP_CONF = {
   imports: [
     CommonModule,
     BrowserModule,
-    // BrowserAnimationsModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     // NgbModule,
@@ -149,16 +146,16 @@ let APP_CONF = {
     // FormlyModule.forRoot(),
     // // NgxJsonViewerModule,
     // FormlyBootstrapModule,
-    // MatTableModule,
-    // MatListModule,
-    // MatButtonModule,
+    MatTableModule,
+    MatListModule,
+    MatButtonModule,
     // FormsModule,
     // // OdpCovid19UiModule.forRoot(APP_CONF),
     // // NgxDaterangepickerMd.forRoot(),
     // ClipboardModule,
-    // MatSidenavModule,
-    // MatIconModule,
-    // MatExpansionModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatExpansionModule,
     // BaseModule,
     // TraceModule,
     // AnimalModelsModule,

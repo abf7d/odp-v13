@@ -1,1 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "~font-awesome/css/font-awesome.css";
+// @import "~@labshare/ls-font/css/lsfontset.css";
+// @import '~bootstrap/scss/bootstrap.scss';
+// @import "~prismjs/plugins/toolbar/prism-toolbar.css";
+// @import "~prismjs/themes/prism-okaidia";
+// @import "~ag-grid-community/dist/styles/ag-grid.css";
+// @import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
+// @import "~angular-bootstrap-md/assets/scss/mdb.scss";
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "PT Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+h1, .h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+h2, .h2 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+a {
+  color: #005ea2;
+  text-decoration: underline;
+}
+
+.external-link {
+  color: #1352c9;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.nav-container {
+  .mat-tab-label-content, .mat-tab-label, .mat-tab-link {
+    font-size: 16px;
+    color: black;
+    opacity: 1;
+    text-decoration: none;
+  }
+  .mat-tab-nav-bar, .mat-tab-header {
+    border: 0;
+  }
+}
+
+.popover {background-color: #f6f7f6;}

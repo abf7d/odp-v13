@@ -4,7 +4,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AboutComponent } from './pages/about/about.component';
+import { AboutComponent } from './features/about/about.component';
 
 // @NgModule({
 //   declarations: [
@@ -90,6 +90,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HeaderViewComponent } from './shared/header/header-view/header-view.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { MobileMenuComponent } from './shared/mobile-menu/mobile-menu.component';
+import { SharedModule } from './shared/shared.module';
 
 // // const customThemes = [labshare];
 
@@ -109,28 +110,30 @@ let APP_CONF = {
 @NgModule({
   declarations: [
     AppComponent,
-    // HomepageComponent,
-    // FeedbackComponent,
-    // SummaryComponent,
-    // DatasetsComponent,
-    // AssayComponent,
-    // AssayOverviewComponent,
-    // LineBreak,
-    // SortPipe,
-    // DataviewerComponent,
-    // VariantAboutComponent,
-    // VariantGlossaryComponent,
-    // FilterByDrugclassPipe,
-    // HeatmapComponent,
-    MobileMenuComponent,
-    // RelatedResourcesComponent,
     AboutComponent,
-    // HighlightsComponent,
-    // MonkeypoxComponent
-    HeaderViewComponent,
-    MenuComponent
+    // // HomepageComponent,
+    // // FeedbackComponent,
+    // // SummaryComponent,
+    // // DatasetsComponent,
+    // // AssayComponent,
+    // // AssayOverviewComponent,
+    // // LineBreak,
+    // // SortPipe,
+    // // DataviewerComponent,
+    // // VariantAboutComponent,
+    // // VariantGlossaryComponent,
+    // // FilterByDrugclassPipe,
+    // // HeatmapComponent,
+    // MobileMenuComponent,
+    // // RelatedResourcesComponent,
+    // AboutComponent,
+    // // HighlightsComponent,
+    // // MonkeypoxComponent
+    // HeaderViewComponent,
+    // MenuComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,

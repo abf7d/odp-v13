@@ -17,7 +17,7 @@ import {RouterModule, Routes} from '@angular/router';
 // import {TraceReagentComponent} from './pages/variant/trace/trace-reagent/trace-reagent.component';
 // import {TraceMutationComponent} from './pages/variant/trace/trace-mutation/trace-mutation.component';
 // import {TraceAboutComponent} from './pages/variant/trace/trace-about/trace-about.component';
-import {AboutComponent} from './pages/about/about.component';
+import {AboutComponent} from './features/about/about.component';
 import { MobileMenuComponent } from './shared/mobile-menu/mobile-menu.component';
 // import {HighlightsComponent} from './pages/highlights/highlights.component';
 // import {AnimalModelsComponent} from './pages/variant/animal-models/animal-models.component';

@@ -1,0 +1,55 @@
+{
+    "menu": [
+        {
+            "name": "Home",
+            "href": "/covid19",
+            "external": true,
+            "dropdown": null
+        },
+        {
+            "name": "SARS-CoV-2 Screening Data",
+            "dropdown": [
+                { "name": "NCATS OpenData Browser", "href": "/covid19/databrowser", "external": true, "newMark": false },
+                { "name": "NCATS Assay Overviews",  "href": "/covid19/assays", "external": true, "newMark": false},
+                { "name": "About NCATS Curve Classes", "href": "/curveclasses", "external": false, "newMark": false },
+                { "name": "GS-441524 Studies", "href": "/GS-441524", "external": false, "newMark": false }
+            ]
+        },
+        {
+            "name": "Variant Therapeutic Data",
+            "dropdown": [
+                { "name": "In vitro Data Summary", "href": "/summary", "external": false, "newMark": false },
+                { "name": "In vitro Activity Visualization", "href": "/activity", "external": false, "newMark": false },
+                { "name": "In vitro Dataset Browser",  "href": "/datasets", "external": false, "newMark": false },
+                { "name": "In vivo Variant Studies", "href": "/in-vivo", "external": false, "newMark": false },
+                { "name": "TRACE Prioritized Variant Testing", "href": "/trace/variant-data", "external": false, "newMark": true },
+                { "name": "Other Variant Resources", "href": "#", "external": false, "newMark": false,
+                    "dropdown": [
+                        { "name": "Glossary",  "href": "/variant-glossary", "external": false, "newMark": false },
+                        { "name": "Therapeutic Assay Overview", "href": "/assays", "external": false, "newMark": false },
+                        { "name": "Related Resources", "href": "/related-resources", "external": false, "newMark": false }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Animal Models",
+            "href": "/animal-models/summary",
+            "external":  false,
+            "dropdown": null
+        },
+        {
+            "name": "Omic Efforts",
+            "href": "/covid19/omics",
+            "external": true,
+            "dropdown": null
+        },
+        {
+            "name": "Resources",
+            "dropdown": [
+                { "name": "About", "href": "about", "external": true, "newMark": false },
+                { "name": "Highlights",  "href": "highlights", "external": true, "newMark": false }
+            ]
+        }
+    ]
+}

@@ -28,7 +28,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/odp-covid19-ui-app/src/favicon.ico",
-              "projects/odp-covid19-ui-app/src/assets"
+              "projects/odp-covid19-ui-app/src/assets",
+              "projects/odp-covid19-ui-app/src/config"
             ],
             "styles": [
               "projects/odp-covid19-ui-app/src/styles.scss"

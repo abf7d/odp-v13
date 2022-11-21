@@ -1,0 +1,9 @@
+{
+    "odp": {
+      "variantApiUrl": "https://opendata-qa.ncats.nih.gov/covid19-api",
+      "graphqlEndpoint": "http://ncatslnapppdv11.ncats.nih.gov/variant/graphql",
+      "covid19ApiUrl": "https://opendata.ncats.nih.gov/covid19"
+    },
+    "services": {"auth": {}}
+  }
+  

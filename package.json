@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
     "@apollo/client": "^3.4.16",
-    "@labshare/base-ui-services": "^3.0.1",
+    "@labshare/base-ui-services": "^2.5.0",
     "@ng-bootstrap/ng-bootstrap": "^12.1.2",
     "@ngx-formly/bootstrap": "^6.0.2",
     "@ngx-formly/core": "^6.0.2",

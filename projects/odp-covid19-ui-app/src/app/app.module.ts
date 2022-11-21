@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { BrowserModule, Title } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,14 +43,14 @@ import { AboutComponent } from './pages/about/about.component';
 // //   initializeFromUrl,
 // //   AppType
 // // } from '@labshare/ngx-core-services';
-// import {
-//   AuthService,
-//   ConfigService,
-//   initializeFromUrl,
-//   AppType,
-//   BaseUIServicesModule,
-//   AuthInterceptor
-// } from '@labshare/base-ui-services';
+import {
+  AuthService,
+  ConfigService,
+  initializeFromUrl,
+  AppType,
+  BaseUIServicesModule,
+  AuthInterceptor
+} from '@labshare/base-ui-services';
 // import {MatTableModule} from '@angular/material/table';
 // import {MatListModule} from '@angular/material/list';
 // import {MatButtonModule} from '@angular/material/button';
@@ -86,19 +86,29 @@ import { AboutComponent } from './pages/about/about.component';
 // import {MDBBootstrapModule} from 'angular-bootstrap-md';
 // import {HighchartsChartModule} from 'highcharts-angular';
 // import {MonkeypoxComponent} from './pages/monkeypox/monkeypox.component';
-// import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HeaderViewComponent } from './header/header-view/header-view.component';
+import { MenuComponent } from './menu/menu.component';
 
 // // const customThemes = [labshare];
 
-// function initialize(http: HttpClient, config: ConfigService, auth: AuthService): () => Promise<any> {
-//   return async () => {
-//     navigator;
-//     http.get('~/config/config.json').subscribe(x => {
-//       console.log(x);
-//     })
-//     return initializeFromUrl(http, config, auth, `./config/config.json`);
-//   };
-// }
+function initialize( http: HttpClient,config: ConfigService, auth: AuthService): () => Promise<any> {
+  return async () => {
+    // return null;
+    http.get('~/config/config.json').subscribe(x => {
+      console.log(x);
+    })
+    return initializeFromUrl(http, config, auth, `./config/config.json`);
+  };
+}
+let APP_CONF = {
+  production: false,
+  services: {
+    auth: {
+      storage: 'local'
+    }
+  }
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,13 +130,17 @@ import { AboutComponent } from './pages/about/about.component';
     AboutComponent,
     // HighlightsComponent,
     // MonkeypoxComponent
+    HeaderViewComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     // BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     // NgbModule,
+    BaseUIServicesModule.forRoot({appConf: APP_CONF, appType: AppType.Site, appBuildVersion: '123'}),
     // // NgxCoreServicesModule.forRoot({appConf: APP_CONF, appType: APP_TYPE, appBuildVersion: APP_BUILD_VERSION}),
     // // NgxBaseComponentsModule.forRoot(customThemes),
     // // UsersRouting,
@@ -154,16 +168,17 @@ import { AboutComponent } from './pages/about/about.component';
     // MDBBootstrapModule.forRoot(),
     // HighchartsChartModule
   ],
-  // providers: [
-  //   Title,
-  //   {
-  //     provide: APP_INITIALIZER,
-  //     useFactory: initialize,
-  //     deps: [HttpClient, ConfigService, AuthService],
-  //     multi: true
-  //   }
-  // ],
-  bootstrap: [AppComponent]
+  providers: [
+    // Title,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initialize,
+      deps: [HttpClient, ConfigService, AuthService],
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent],
+
 })
 export class AppModule {
   constructor() {}

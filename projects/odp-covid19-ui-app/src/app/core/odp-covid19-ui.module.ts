@@ -6,7 +6,7 @@ import {APOLLO_OPTIONS} from 'apollo-angular';
 import { ConfigService } from '@labshare/base-ui-services';
 // import { HttpClient } from '@angular/common/http';
 // import { lastValueFrom } from 'rxjs';
-
+import * as CONST from './constants/api-constants';
 const defaultOptions: DefaultOptions = {
   watchQuery: {
     fetchPolicy: 'no-cache',
@@ -26,7 +26,7 @@ export class OdpCovid19UiModule {
         {
           provide: APOLLO_OPTIONS,
           useFactory: (httpLink: HttpLink, configService: ConfigService): ApolloClientOptions<any> => {
-            const variantGraphQL = configService.get('odp.variantApiUrl')
+            const variantGraphQL = configService.get(CONST.VARIANT_URL_KEY)
             
             
             return {

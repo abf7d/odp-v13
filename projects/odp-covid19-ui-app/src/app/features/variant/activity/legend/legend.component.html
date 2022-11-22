@@ -1,0 +1,236 @@
+<ng-container [ngSwitch]="activeLineage?.viralLineage">
+  <ng-container *ngSwitchCase="'What\'s New?'">
+    <div class="d-flex new-legend sticky">
+      <div class="title-container">
+        <span class="legend-title">Variant Tested</span>
+      </div>
+      <div class="d-flex flex-wrap flex-column v-container">
+        <div
+          class="v-entry"
+          *ngFor="let variant of filteredLineages"
+          (click)="variantClicked(variant)"
+          [ngClass]="{
+            selected: selectedVariant?.viralLineage === variant.viralLineage,
+            mouseover: visibleMap.get(variant.viralLineage)
+          }"
+        >
+          <div>
+            <div
+              class="v-circle"
+              [hidden]="!visibleMap.get(variant.viralLineage)"
+              [ngStyle]="{
+                'background-color': variant.color,
+                opacity: !selectedVariant ? 1 : selectedVariant?.viralLineage === variant.viralLineage ? 1 : 0.5
+              }"
+            ></div>
+            <span
+              class="v-name"
+              [hidden]="!visibleMap.get(variant.viralLineage)"
+              [ngStyle]="{
+                color: variant.color,
+                'font-weight': selectedVariant?.viralLineage === variant.viralLineage ? 'bold' : 'normal'
+              }"
+              >{{ variant.viralLineage === 'Single Mutation Variant' ? 'Single Mutation' : variant.viralLineage }}</span
+            >
+          </div>
+          <span class="remove" *ngIf="selectedVariant?.viralLineage === variant.viralLineage">X</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'All Variants'">
+    <div class="d-flex new-legend sticky">
+      <div class="title-container">
+        <span class="legend-title">Variant Tested</span>
+      </div>
+      <div class="d-flex flex-wrap flex-column v-container">
+        <div
+          class="v-entry"
+          *ngFor="let variant of filteredLineages"
+          (click)="variantClicked(variant)"
+          [ngClass]="{
+            selected: selectedVariant?.viralLineage === variant.viralLineage,
+            mouseover: visibleMap.get(variant.viralLineage)
+          }"
+        >
+          <div
+            class="v-circle"
+            [hidden]="!visibleMap.get(variant.viralLineage)"
+            [ngStyle]="{
+              'background-color': variant.color,
+              opacity: !selectedVariant ? 1 : selectedVariant?.viralLineage === variant.viralLineage ? 1 : 0.5
+            }"
+          ></div>
+          <span
+            class="v-name"
+            [hidden]="!visibleMap.get(variant.viralLineage)"
+            [ngStyle]="{
+              'font-weight': selectedVariant?.viralLineage === variant.viralLineage ? 'bold' : 'normal'
+            }"
+            >{{ variant.viralLineage === 'Single Mutation Variant' ? 'Single Mutation' : variant.viralLineage }}</span
+          >
+          <span class="remove" *ngIf="selectedVariant?.viralLineage === variant.viralLineage">X</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'Single Mutation Variant'">
+    <div class="sticky">
+      <div class="svg-title">
+        <span class="legend-title">Variant & Viral Type Used</span>
+        <a [routerLink]="['/variant-glossary']">
+          (what do these mean?)
+        </a>
+      </div>
+      <svg width="800" height="40px" class="legend">
+        <g class="legend" transform="translate(30, 20)">
+          <g transform="translate(0,0)">
+            <circle
+              r="7"
+              cx="-15"
+              cy="-4"
+              style='stroke: rgb(254, 153, 61); stroke-width: 3; fill: url("#live-half");'
+            ></circle>
+            <text>Single Mutation Variant, live virus</text>
+          </g>
+          <g transform="translate(260,0)">
+            <circle
+              r="7"
+              cx="-15"
+              cy="-4"
+              style='stroke: rgb(152, 56, 151); stroke-width: 3; fill: url("#psuedo-half");'
+            ></circle>
+            <text>Single Mutation Variant, pseudovirus</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    <div class="sticky">
+      <div class="svg-title">
+        <div [hidden]="legendToggle !== 'type'">
+          <span class="legend-title">Variant & Viral Type Used</span>
+          <a [routerLink]="['/variant-glossary']">
+            (what do these mean?)
+          </a>
+        </div>
+        <div [hidden]="legendToggle !== 'sub'">
+          <span class="legend-title">Sublineage</span>
+        </div>
+
+        <div class="legend-toggle" [hidden]="activeLineage?.viralLineage === 'Other Variants'">
+          <div class="caption">
+            Color points by:
+          </div>
+          <div class="form-check form-check-inline" (click)="selectLegendType('type')">
+            <input class="form-check-input" [ngModel]="legendToggle" value="type" name="legend-toggle" type="radio" />
+            <label class="form-check-label" for="inlineCheckbox1">Viral Type</label>
+          </div>
+          <div class="form-check form-check-inline" (click)="selectLegendType('sub')">
+            <input class="form-check-input" [ngModel]="legendToggle" value="sub" name="legend-toggle" type="radio" />
+            <label class="form-check-label" for="inlineCheckbox1">Sublineage</label>
+          </div>
+        </div>
+      </div>
+      <div [hidden]="legendToggle !== 'type'">
+        <svg width="800" height="40px" class="legend">
+          <g style="display: none;" class="legend" transform="translate(50, 30)">
+            <g transform="translate(0,0)">
+              <circle
+                r="5"
+                cx="-25"
+                cy="-4"
+                style='stroke: rgb(254, 153, 61); stroke-width: 3; fill: url("#live-half");'
+              ></circle>
+              <text>Single Mutation Variant (Live virus)</text>
+            </g>
+            <g transform="translate(50,0)">
+              <circle
+                r="5"
+                cx="-25"
+                cy="-4"
+                style='stroke: rgb(152, 56, 151); stroke-width: 3; fill: url("#psuedo-half");'
+              ></circle>
+              <text>Single Mutation Variant (Pseudovirus)</text>
+            </g>
+          </g>
+
+          <g
+            transform="translate(30, -10)"
+            class="legend"
+            *ngIf="activeLineage?.viralLineage !== 'Single Mutation Variant'"
+          >
+            <g transform="translate(0,30)">
+              <circle
+                r="7"
+                cx="-15"
+                cy="-4"
+                style="stroke: rgb(254, 153, 61); stroke-width: 3; fill: rgb(254, 153, 61);"
+              ></circle>
+              <text>Full Variant, live virus</text>
+            </g>
+            <g transform="translate(180,30)">
+              <circle
+                r="7"
+                cx="-15"
+                cy="-4"
+                style="stroke: rgb(254, 153, 61); stroke-width: 3; fill: rgb(255, 255, 255);"
+              ></circle>
+              <text>Partial Variant, live virus</text>
+            </g>
+            <g transform="translate(380,30)">
+              <circle
+                r="5"
+                cx="-15"
+                cy="-4"
+                style="stroke: rgb(152, 56, 151); stroke-width: 3; fill: rgb(152, 56, 151);"
+              ></circle>
+              <text>Full Variant, pseudovirus</text>
+            </g>
+            <g transform="translate(580,30)">
+              <circle
+                r="7"
+                cx="-15"
+                cy="-4"
+                style="stroke: rgb(152, 56, 151); stroke-width: 3; fill: rgb(255, 255, 255);"
+              ></circle>
+              <text>Partial Variant, pseudovirus</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div [hidden]="legendToggle !== 'sub'" class="subvariant-legend">
+        <div class="d-flex flex-wrap flex-column sub-v-container v-container">
+          <div
+            class="v-entry mouseover"
+            *ngFor="let subvariant of subvariants"
+            (click)="subvariantClicked(subvariant)"
+            [ngClass]="{
+              selected: selectedSubvariant?.sublineage === subvariant.sublineage
+            }"
+          >
+            <div>
+              <div
+                class="v-circle"
+                [ngStyle]="{
+                  'background-color': subvariant.color,
+                  opacity: !selectedSubvariant ? 1 : selectedSubvariant?.sublineage === subvariant.sublineage ? 1 : 0.5
+                }"
+              ></div>
+              <span
+                class="v-name"
+                [ngStyle]="{
+                  color: subvariant.color,
+                  'font-weight': selectedSubvariant?.sublineage === subvariant.sublineage ? 'bold' : 'normal'
+                }"
+                >{{ subvariant.sublineage }}</span
+              >
+            </div>
+            <span class="remove" *ngIf="selectedSubvariant?.sublineage === subvariant.sublineage">X</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

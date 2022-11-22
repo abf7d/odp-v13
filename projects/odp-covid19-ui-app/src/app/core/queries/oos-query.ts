@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {gql, Query} from 'apollo-angular';
-import {DatasetQuery} from '../models/variant/datasets-ql';
-import {OosQuery} from '../models/oos/oos-data-ql';
+import {DatasetQuery} from '../models/dtos/variant/datasets-ql';
+import {OosQuery} from '../models/dtos/oos/oos-data-ql';
 
 @Injectable({
   providedIn: 'root'

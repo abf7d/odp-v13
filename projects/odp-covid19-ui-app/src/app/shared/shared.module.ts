@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FooterViewComponent } from './footer/footer-view/footer-view.component';
 import { ExternalLinkComponent } from './external-link/external-link.component';
+import { LoaderComponent } from './loader/loader.component';
+import { FixedMenuComponent } from './fixed-menu/fixed-menu.component';
+import { FixedHeaderComponent } from './fixed-header/fixed-header.component';
 
 
 
@@ -43,7 +46,10 @@ import { ExternalLinkComponent } from './external-link/external-link.component';
     HeaderViewComponent,
     MenuComponent,
     FooterViewComponent,
-    ExternalLinkComponent
+    ExternalLinkComponent,
+    LoaderComponent,
+    FixedMenuComponent,
+    FixedHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +72,10 @@ import { ExternalLinkComponent } from './external-link/external-link.component';
     HeaderViewComponent,
     MenuComponent,
     FooterViewComponent,
-    ExternalLinkComponent
+    ExternalLinkComponent,
+    LoaderComponent,
+    FixedHeaderComponent,
+    FixedMenuComponent
   ]
 })
 export class SharedModule { }

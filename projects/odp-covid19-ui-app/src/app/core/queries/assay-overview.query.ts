@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {gql, Query} from 'apollo-angular';
-import {AssayOverviewQuery} from '../models/assay/assay-overview-ql';
+import {AssayOverviewQuery} from '../models/dtos/assay/assay-overview-ql';
 
 @Injectable({
   providedIn: 'root'

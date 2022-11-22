@@ -1,0 +1,32 @@
+<div class="info ml-4 p-2 ">
+  <div class="w100 bg-white p-3">
+    <div class="d-flex">
+      <div class="p pr-4 h5">
+        <span>SELECTED POINT DETAIL</span>
+      </div>
+      <div>
+        <a href="javascript:void(0)" *ngIf="neighbors !== null && neighbors.length > 0" (click)="showNeighbors = !showNeighbors">
+          {{ showNeighbors ? '- Hide' : '+ Show' }} {{ neighbors.length }} Neighboring Point(s)</a
+        >
+      </div>
+    </div>
+    <div class="no-point point-area" *ngIf="selectedDataPoint === null; else selectedData">
+      No Point Selected
+    </div>
+  </div>
+  <ng-template #selectedData>
+    <div class="window overflow-auto">
+      <app-selected-point-info
+        [point]="selectedDataPoint"
+        [colorByVariant]="colorByVariant"
+        [selected]="true"
+      ></app-selected-point-info>
+      <div [hidden]="!showNeighbors">
+        <div class="pb-2" *ngIf="!!neighbors && neighbors.length > 0">Neighbors</div>
+        <div class="neighbor-card m-2" *ngFor="let neighbor of neighbors">
+          <app-selected-point-info [point]="neighbor" [colorByVariant]="colorByVariant"></app-selected-point-info>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

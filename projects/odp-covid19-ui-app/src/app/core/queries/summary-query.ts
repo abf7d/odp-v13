@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {gql, Query} from 'apollo-angular';
-import {VariantSummaryQuery} from '../models/variant/summary-ql';
+import {VariantSummaryQuery} from '../models/dtos/variant/summary-ql';
 
 @Injectable({
   providedIn: 'root'

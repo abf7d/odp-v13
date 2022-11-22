@@ -2,35 +2,35 @@ import {Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {VariantMapperService} from '../../mappers/variant-mapper/variant-mapper.service';
-import {AssayOverview, InVivoApiFilters, InVivoPoint, VariantDataset, VariantSummary} from '../../../models';
-import {VariantDatasetQL} from '../../../queries/dataset-query';
-import {VariantSummaryQL} from '../../../queries/summary-query';
+import {AssayOverview /*, InVivoApiFilters, InVivoPoint, VariantDataset, VariantSummary*/ } from '../../../models';
+// import {VariantDatasetQL} from '../../../queries/dataset-query';
+// import {VariantSummaryQL} from '../../../queries/summary-query';
 import {AssayQL} from '../../../queries/assay-query';
-import {Assay} from '../../../models/assay/assay';
+import {Assay} from '../../../models/dtos/assay/assay';
 import {AssayOverviewQL} from '../../../queries/assay-overview.query';
-import {TherapeuticActivity} from '../../../models/therapeutics/therapeutic-activity';
-import {TherapeuticActivityQL} from '../../../queries/therapeutic-activity-query';
-import {ActivityChartPointQL} from '../../../queries/activity-chart-query';
-import {ActivityChartPoint} from '../../../models/activity/activity-chart';
-import {BASE_URL} from '../../../tokens/token';
-import {HttpClient} from '@angular/common/http';
-import {TherapeuticClass} from '../../../models/therapeutics/therapeutic-class';
-import {DatasetMetadata} from '../../../models/variant/dataset-metadata';
-import {DatasetFilters} from '../../../models/variant/dataset-filters';
-import {Lineage} from '../../../models/lineage/lineage';
-import {LineageQL} from '../../../queries/lineage-query';
-import {DrugQL} from '../../../queries/drug-query';
-import {Drug} from '../../../models/drug';
-import {TherapeuticGroup} from '../../../models/therapeutics/therapeutic-group';
-import {DrugClassDensity} from '../../../models/variant/data-density';
-import {ResourceEntry} from '../../../models/related-resources/resource';
-import {ResourceQL} from '../../../queries/related-resource-query';
-import {InVivoQL} from '../../../queries/invivo-query';
-import {OosDatasetQL} from '../../../queries/oos-query';
-import {OosDataset} from '../../../models/oos/oos-data';
-import { ConfigService } from '@labshare/base-ui-services';
-import { HttpLink } from 'apollo-angular/http';
-import { Apollo } from 'apollo-angular';
+// import {TherapeuticActivity} from '../../../models/therapeutics/therapeutic-activity';
+// import {TherapeuticActivityQL} from '../../../queries/therapeutic-activity-query';
+// import {ActivityChartPointQL} from '../../../queries/activity-chart-query';
+// import {ActivityChartPoint} from '../../../models/api/activity/activity-chart';
+// import {BASE_URL} from '../../../tokens/token';
+// import {HttpClient} from '@angular/common/http';
+// import {TherapeuticClass} from '../../../models/therapeutics/therapeutic-class';
+// import {DatasetMetadata} from '../../../models/api/variant/dataset-metadata';
+// import {DatasetFilters} from '../../../models/api/variant/dataset-filters';
+// import {Lineage} from '../../../models/lineage/lineage';
+// import {LineageQL} from '../../../queries/lineage-query';
+// import {DrugQL} from '../../../queries/drug-query';
+// import {Drug} from '../../../models/drug';
+// import {TherapeuticGroup} from '../../../models/therapeutics/therapeutic-group';
+// import {DrugClassDensity} from '../../../models/api/variant/data-density';
+// import {ResourceEntry} from '../../../models/related-resources/resource';
+// import {ResourceQL} from '../../../queries/related-resource-query';
+// import {InVivoQL} from '../../../queries/invivo-query';
+// import {OosDatasetQL} from '../../../queries/oos-query';
+// import {OosDataset} from '../../../models/oos/oos-data';
+// import { ConfigService } from '@labshare/base-ui-services';
+// import { HttpLink } from 'apollo-angular/http';
+// import { Apollo } from 'apollo-angular';
 @Injectable({
   providedIn: 'root'
 })
@@ -42,9 +42,9 @@ export class VariantApiService {
     // private httpClient: HttpClient,
     // private variantDatasetQL: VariantDatasetQL,
     // private summaryQL: VariantSummaryQL,
-    private assayQL: AssayQL,
+   /* private assayQL: AssayQL,
     private assayOverviewQL: AssayOverviewQL,
-    private variantMapper: VariantMapperService,
+    private variantMapper: VariantMapperService, */
     // private therapeuticActivityQL: TherapeuticActivityQL,
     // private activityChartPointQL: ActivityChartPointQL,
     // private lineageQL: LineageQL,
@@ -93,7 +93,7 @@ export class VariantApiService {
   //   return this.summaryQL.fetch().pipe(map(result => this.variantMapper.mapToSummaries(result.data.variant3)));
   // }
 
-  public getAssays(): Observable<Assay[]> {
+  /*public getAssays(): Observable<Assay[]> {
     return this.assayQL.fetch().pipe(map(result => this.variantMapper.mapToAssays(result.data.variant3AssayOverview)));
   }
 
@@ -102,7 +102,7 @@ export class VariantApiService {
     return this.assayOverviewQL
       .fetch({keyFilter: query})
       .pipe(map(result => this.variantMapper.mapToAssayOverview(result.data.variant3AssayOverview)));
-  }
+  }*/
 
   // public getTherapeuticActivity(reportNumber: string): Observable<TherapeuticActivity[]> {
   //   const query = `reportNumber==${reportNumber}`;

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {gql, Query} from 'apollo-angular';
-import {DatasetQuery} from '../models/variant/datasets-ql';
+import {DatasetQuery} from '../models/dtos/variant/datasets-ql';
 
 @Injectable({
   providedIn: 'root'

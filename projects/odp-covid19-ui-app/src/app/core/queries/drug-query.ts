@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {gql, Query} from 'apollo-angular';
-import {DrugQuery} from '../models/drug-ql';
+import {DrugQuery} from '../models/dtos/drug-ql';
 
 @Injectable({
   providedIn: 'root'

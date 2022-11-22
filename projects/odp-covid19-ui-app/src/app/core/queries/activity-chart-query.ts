@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {gql, Query} from 'apollo-angular';
-import {ActivityChartQuery} from '../models/activity/activity-chart-ql';
+import {ActivityChartQuery} from '../models/dtos/activity/activity-chart-ql';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {gql, Query} from 'apollo-angular';
-import {LineageQuery} from '../models/lineage/lineage-ql';
+import {LineageQuery} from '../models/dtos/lineage/lineage-ql';
 
 @Injectable({
   providedIn: 'root'

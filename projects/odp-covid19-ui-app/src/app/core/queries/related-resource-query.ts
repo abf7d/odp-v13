@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {gql, Query} from 'apollo-angular';
-import {ActivityChartQuery} from '../models/activity/activity-chart-ql';
-import {InVivoQuery} from '../models/in-vivo/invivo-ql';
-import {ResourceQuery} from '../models/related-resources/resource-ql';
+import {ActivityChartQuery} from '../models/dtos/activity/activity-chart-ql';
+import {InVivoQuery} from '../models/dtos/in-vivo/invivo-ql';
+import {ResourceQuery} from '../models/dtos/related-resources/resource-ql';
 
 @Injectable({
   providedIn: 'root'

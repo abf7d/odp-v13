@@ -1,8 +1,7 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import { VariantApiService } from '../../../core/services/api/variant-api/variant-api.service';
-// import { VariantApiService } from '../../../lib/api/variant-api/variant-api.service';
+import { AssayApiService } from '../../../core/services/api/assay-api/assay-api.service';
 
 @Component({
   selector: 'app-overview',
@@ -14,7 +13,7 @@ export class AssayOverviewComponent implements OnInit {
   assayName: string;
   assayDetail: any = {};
 
-  constructor(private actRoute: ActivatedRoute, private variantApi: VariantApiService, private titleService: Title) {
+  constructor(private actRoute: ActivatedRoute, private assayApi: AssayApiService, private titleService: Title) {
     this.assayId = this.actRoute.snapshot.params['id'];
     this.assayName = this.actRoute.snapshot.params['assay'];
   }
@@ -25,7 +24,7 @@ export class AssayOverviewComponent implements OnInit {
   }
 
   getData(): void {
-    this.variantApi.getAssayOverview(this.assayId).subscribe(result => {
+    this.assayApi.getAssayOverview(this.assayId).subscribe(result => {
       this.assayDetail = result;
     });
   }

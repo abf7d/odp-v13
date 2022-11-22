@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {gql, Query} from 'apollo-angular';
-import {TherapeuticActivityQuery} from '../models/therapeutics/therapeutic-activity-ql';
+import {TherapeuticActivityQuery} from '../models/dtos/therapeutics/therapeutic-activity-ql';
 
 @Injectable({
   providedIn: 'root'

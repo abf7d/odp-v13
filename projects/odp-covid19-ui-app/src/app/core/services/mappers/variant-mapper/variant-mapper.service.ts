@@ -1,15 +1,15 @@
 // @ts-nocheck
 import {Injectable} from '@angular/core';
 import {VariantDataset, Therapeutic, VariantSummary, AssayOverview} from '../../../models';
-import {VariantSummaryEdge, VariantSummaryResult} from '../../../models/variant/summary-ql';
-import {DatasetResult} from '../../../models/variant/datasets-ql';
-import {AssayResult} from '../../../models/assay/assay-ql';
-import {Assay, AssayDetail} from '../../../models/assay/assay';
-import {AssayOverviewResult} from '../../../models/assay/assay-overview-ql';
+import {VariantSummaryEdge, VariantSummaryResult} from '../../../models/api/variant/summary-ql';
+import {DatasetResult} from '../../../models/api/variant/datasets-ql';
+import {AssayResult} from '../../../models/api/assay/assay-ql';
+import {Assay, AssayDetail} from '../../../models/api/assay/assay';
+import {AssayOverviewResult} from '../../../models/api/assay/assay-overview-ql';
 import {TherapeuticActivityEdge} from '../../../models/therapeutics/therapeutic-activity-ql';
 import {TherapeuticActivity} from '../../../models/therapeutics/therapeutic-activity';
-import {ActivityChartEdge} from '../../../models/activity/activity-chart-ql';
-import {ActivityChartPoint} from '../../../models/activity/activity-chart';
+import {ActivityChartEdge} from '../../../models/dtos/activity/activity-chart-ql';
+import {ActivityChartPoint} from '../../../models/dtos/activity/activity-chart';
 import {LineageEdge, LineageNode} from '../../../models/lineage/lineage-ql';
 import {Lineage} from '../../../models/lineage/lineage';
 import {DrugEdge} from '../../../models/drug-ql';

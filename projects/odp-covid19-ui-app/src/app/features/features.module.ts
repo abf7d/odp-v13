@@ -9,6 +9,7 @@ import { AssayOverviewComponent } from './assay/overview/overview.component';
 import { FeedbackComponent } from './homepage/feedback/feedback.component';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
+import { ActivityModule } from './variant/activity/activity.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,6 @@ import { CoreModule } from '../core/core.module';
     AssayComponent,
     AssayOverviewComponent,
   ],
-  imports: [CommonModule, SharedModule, CoreModule, RouterModule],
+  imports: [CommonModule, SharedModule, CoreModule, RouterModule, /*ActivityModule*/],
 })
 export class FeaturesModule {}

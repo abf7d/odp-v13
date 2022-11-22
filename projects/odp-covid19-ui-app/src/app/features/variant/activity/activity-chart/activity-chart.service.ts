@@ -1,12 +1,14 @@
-// @ts-nocheck
 import {ElementRef, Injectable} from '@angular/core';
 import { EventService } from '@labshare/base-ui-services';
 import * as d3 from 'd3';
+import { ActivityChartParams } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/activity-chart-params';
 import { DisplayChartPoint } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-chart-point';
 import { DisplayLineage } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-lineage';
 import { Header } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header';
+import { HeaderPos } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header-pos';
 import {BehaviorSubject, Subscription} from 'rxjs';
 import { ActivityPointConfig, ActivityPointConfigFactory } from './config/activity-chart-config';
+import * as Keys from '../../../../core/constants/ui-constants';
 // import {ActivityPointConfig, ActivityPointConfigFactory} from './activity-chart-config';
 // import {DisplayChartPoint} from '../models/display-chart-point';
 // import {ActivityChartParams} from '../models/activity-chart-params';
@@ -26,7 +28,7 @@ export class ActivityChartService {
   private selectedPoint!: BehaviorSubject<DisplayChartPoint | null>;
   private neighbors!: BehaviorSubject<DisplayChartPoint[]>;
   public inactiveMode!: string;
-  public variantNam!: string;
+  public variantName!: string;
   public variants!: DisplayLineage[];
   public colorByVariant!: boolean;
   public points!: DisplayChartPoint[];
@@ -87,12 +89,10 @@ export class ActivityChartService {
     this.svg.selectAll('*').remove();
 
     this.headers.sort((a, b) => a.order - b.order);
-    this.headers.forEach(h => h.items.sort((a, b) => a.order - b.order));
+    this.headers.forEach(h => h.items?.sort((a, b) => a.order - b.order));
 
     const headerFlatList = this.headers.reduce(
-      (acc, b) => (b.showChildren ? [...acc, ...b.items] : acc),
-      []
-    ) as Header[];
+      (acc: Header[], b: Header) => (b.showChildren ? [...acc, ...(b.items ?? [])] : acc), [])
     this.therapeuticMetadataMap = new Map<string, Header>(headerFlatList.map(header => [header.name, header]));
     const collapsedGroups = this.headers.filter(g => !g.showChildren);
     const headerPositions = this.getAxisPositions(this.headers);
@@ -109,17 +109,17 @@ export class ActivityChartService {
 
     const chartG = this.svg
       .append('g')
-      .attr('transform', (d, i) => `scale(${this.config.chartScale})`)
+      .attr('transform', () => `scale(${this.config.chartScale})`)
       .append('g')
-      .attr('transform', (d, i) => `translate(200, ${this.config.topChartPadding})`)
+      .attr('transform', () => `translate(200, ${this.config.topChartPadding})`)
       .attr('class', 'header-groups');
 
     this.createHalfCircleFillMarkers(chartG, this.config);
     const configRef = this.config;
 
     points.sort((a, b) => (a.toggleHidden && b.toggleHidden ? 0 : a.toggleHidden ? -1 : 1));
-    const allDrugs = this.headers.reduce((acc, hpos) => {
-      return [...acc, ...hpos.items.map(d => d.name)];
+    const allDrugs = this.headers.reduce((acc: string[], hpos: Header) => {
+      return [...acc, ...(hpos.items?.map(d => d.name) ?? [])];
     }, []);
     chartG
       .selectAll('g.grouped-chart')
@@ -128,7 +128,7 @@ export class ActivityChartService {
       .append('g')
       .attr('class', 'grouped-chart')
       .attr('transform', `translate(100, 0)`)
-      .each((hPos, i, nodes) => {
+      .each((hPos: HeaderPos, i: number, nodes: any) => {
         const gEl = d3.select(nodes[i]);
         const params: ActivityChartParams = {
           gEl,
@@ -187,7 +187,13 @@ export class ActivityChartService {
       .attr('x', -config.groupBoxWidth)
       .attr('y', hPos.y)
       .attr('height', a => {
-        return hPos.group.showChildren ? hPos.group.items.length * config.rowHeight : config.rowHeight;
+        let height; 
+        if(hPos.group.showChildren && !!hPos.group?.items) {
+            height = hPos.group.items.length * config.rowHeight;
+        } else {
+            height = config.rowHeight;
+        }
+        return height;
       })
       .attr('width', config.groupBoxWidth)
       .attr('opacity', 0.05);
@@ -197,7 +203,7 @@ export class ActivityChartService {
       .select('.y-axis')
       .append('g')
       .attr('class', 'group-name')
-      .attr('transform', (a, i) => `translate(-${config.groupBoxWidth - 10}, ${hPos.y + 15})`)
+      .attr('transform', (a, i) => `translate(-${config.groupBoxWidth - 10}, ${hPos.y ?? 0 + 15})`)
       .append('text')
       .text(hPos.group.showChildren ? '- ' + hPos.group.name : '+ ' + hPos.group.name)
       .on('mousedown', (a, b) => {
@@ -212,9 +218,12 @@ export class ActivityChartService {
     // local y axis with ticks and names
     const y = d3
       .scaleBand()
-      .rangeRound([hPos.y, hPos.height + hPos.y])
+      .rangeRound([hPos.y ?? 0, hPos.height + (hPos.y ?? 0)])
       .padding(0.1);
 
+      if(!hPos.group?.items) {
+        return;
+      }
     const groupItemNames = hPos.group.items.map(a => a.name);
 
     y.domain(groupItemNames);
@@ -249,7 +258,7 @@ export class ActivityChartService {
       a => groupItemNames.indexOf(a.drugName) > -1 && a.drugActivity1NumericFold !== null
     );
 
-    const boundX = a => {
+    const boundX = (a: any) => {
       let cx = +a.drugActivity1NumericFold;
       if (cx > 1000) {
         cx = 1000;
@@ -271,9 +280,9 @@ export class ActivityChartService {
       .classed('selected-drug', d => d === this.selectedTherapeuticName)
       .style('stroke-dasharray', a => (groupPoints.filter(b => b.drugName === a).length === 0 ? '5,5' : ''))
       .attr('x1', 0)
-      .attr('y1', a => y(a as string) + 15)
+      .attr('y1', (a: string) => y(a) ?? 0 + 15)
       .attr('x2', config.innerWidth)
-      .attr('y2', a => y(a as string) + 15);
+      .attr('y2', (a: string) => y(a) ?? 0  + 15);
 
     // chart points
     const ptGroups = gEl
@@ -293,7 +302,7 @@ export class ActivityChartService {
           .lower()
           .classed('hover', true)
           .attr('cx', xPos)
-          .attr('cy', y(b.drugName) + 15)
+          .attr('cy', y(b.drugName) ?? 0 + 15)
           .attr('r', 15);
       })
       .on('mouseout', (a, b) => {
@@ -308,7 +317,7 @@ export class ActivityChartService {
       .classed('test', a => a.selected)
       .classed('hide-point', a => this.inactiveMode === 'remove' && !!a.colorOverride)
       .attr('cx', boundX)
-      .attr('cy', a => y(a.drugName) + 15)
+      .attr('cy', a => y(a.drugName) ?? 0 + 15)
       .style('stroke-width', a => (a.size ? 4 : 5))
       .style('stroke', '#C0E275')
       .style('fill', a => '#C0E275')
@@ -318,8 +327,8 @@ export class ActivityChartService {
       .append('line')
       .attr('x1', boundX)
       .attr('x2', boundX)
-      .attr('y1', a => y(a.drugName) + -5)
-      .attr('y2', a => y(a.drugName) + 35)
+      .attr('y1', a => y(a.drugName) ?? 0 + -5)
+      .attr('y2', a => y(a.drugName) ?? 0 + 35)
       .attr('height', 10)
       .style('stroke', 'white')
       .style('stroke-width', 3)
@@ -331,22 +340,25 @@ export class ActivityChartService {
       .classed('selected', a => a.selected)
       .classed('hide-point', a => this.inactiveMode === 'remove' && a.toggleHidden)
       .attr('cx', boundX)
-      .attr('cy', a => y(a.drugName) + 15)
+      .attr('cy', a => y(a.drugName) ?? 0 + 15)
       .style('stroke', a => this.getStroke(a))
       .style('fill', a => this.getFill(a))
       .attr('r', a => a.size ?? config.pointRadius);
   }
 
-  private truncateLabel(labels) {
+  private truncateLabel(labels: any) {
     labels.each(function() {
+        // @ts-ignore
       const therapeuticName = d3.select(this).text();
       let renderName = therapeuticName;
 
       if (therapeuticName.length > 29) {
         renderName = renderName.slice(0, 26) + '...';
       }
+       // @ts-ignore
       d3.select(this).text(renderName);
       if (therapeuticName.length > 29) {
+         // @ts-ignore
         d3.select(this)
           .append('title')
           .append('text')
@@ -364,6 +376,9 @@ export class ActivityChartService {
 
   public mouseOverTherapeutic(event: any, d: any) {
     const metadata = this.therapeuticMetadataMap.get(d);
+    if (!metadata) {
+        return;
+    }
     const parent = d3.select(event.currentTarget).node().parentNode.parentNode.parentNode.parentNode.parentNode
       .parentNode;
     d3.select(event.target).classed('hover-square', false);
@@ -386,7 +401,7 @@ export class ActivityChartService {
   <div class="popup-container" style="${border} background-color: white; padding: 10px;">
       <div class="t-name"> ${metadata.name} </div>
       <div class="c-name"> ${metadata.drugCompany} </div>
-       <div class="o-names"> Other Names: ${metadata.otherNames.join(', ')} <div>
+       <div class="o-names"> Other Names: ${metadata.otherNames?.join(', ')} <div>
       </div>
   </foreignobject>`;
   }
@@ -688,7 +703,7 @@ export class ActivityChartService {
   private getAxisPositions(groups: Header[]): HeaderPos[] {
     const groupPos: HeaderPos[] = [];
     for (const group of groups) {
-      const height = group.showChildren ? group.items.length * this.config.rowHeight : this.config.rowHeight;
+      const height = group.showChildren ? group.items?.length ?? 0 * this.config.rowHeight : this.config.rowHeight;
       groupPos.push({height, group, y: null});
     }
     let tracker = 0;
@@ -700,8 +715,8 @@ export class ActivityChartService {
 
       g.y = tracker;
       let hTracker = 0;
-      if (g.group.showChildren) {
-        g.group.items.forEach(h => {
+      if (g.group?.showChildren) {
+        g.group.items?.forEach(h => {
           h.y = hTracker;
           hTracker += this.config.rowHeight;
         });

@@ -21,6 +21,7 @@ import {AboutComponent} from './features/about/about.component';
 import { AssayComponent } from './features/assay/assay/assay.component';
 import { AssayOverviewComponent } from './features/assay/overview/overview.component';
 import { HomepageComponent } from './features/homepage/homepage.component';
+import { ActivityComponent } from './features/variant/activity/activity-layout/activity.component';
 import { MobileMenuComponent } from './shared/mobile-menu/mobile-menu.component';
 // import {HighlightsComponent} from './pages/highlights/highlights.component';
 // import {AnimalModelsComponent} from './pages/variant/animal-models/animal-models.component';
@@ -176,10 +177,10 @@ const routes: Routes = [
       }
     ]
   },
-  // {
-  //   path: 'activity',
-  //   component: ActivityComponent
-  // },
+  {
+    path: 'activity',
+    component: ActivityComponent
+  },
   // {
   //   path: 'in-vivo',
   //   component: InVivoGridComponent

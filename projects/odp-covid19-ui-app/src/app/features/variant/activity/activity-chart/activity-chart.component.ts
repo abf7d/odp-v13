@@ -287,12 +287,12 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
     this.refreshChart();
   }
 
-  public legendVariantClicked(variant: DisplayLineage) {
+  public legendVariantClicked(variant: DisplayLineage | null) {
     this.legendVariant = variant;
 
     this.refreshChart();
   }
-  public setSubvariant(subvariant: Subvariant) {
+  public setSubvariant(subvariant: Subvariant | null) {
     this.selectedSubvariant = subvariant;
     this.refreshChart();
   }

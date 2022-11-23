@@ -35,6 +35,9 @@ import { SharedModule } from '../../../shared/shared.module';
     // BaseModule,
     SharedModule
     // NgxDaterangepickerMd.forRoot()
+  ],
+  exports: [
+    ActivityChartComponent
   ]
 })
 export class ActivityModule {}

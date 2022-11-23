@@ -1,17 +1,21 @@
-// @ts-nocheck
 import {group} from '@angular/animations';
 import {EventEmitter, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {EventService} from '@labshare/base-ui-services';
+import { ActivityFilters } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/activity-filters';
+import { FilterGroup } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/filter-group';
+import { FilterValue } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/filter-value';
+import { SelectedFilter } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/selected-filter';
 import {Observable, Subscription} from 'rxjs';
 import {filter, map, startWith} from 'rxjs/operators';
-import {ActivityFilters} from '../../../../services/models/activity-filters';
-import {DateRange} from '../../../../services/models/date-range';
-import {FilterGroup} from '../../../../services/models/filter-group';
-import {FilterValue} from '../../../../services/models/filter-value';
-import {SelectedFilter} from '../../../../services/models/selected-filter';
-import * as Keys from '../../../../services/constants/chart-constants';
+// import {ActivityFilters} from '../../../../services/models/activity-filters';
+// import {DateRange} from '../../../../services/models/date-range';
+// import {FilterGroup} from '../../../../services/models/filter-group';
+// import {FilterValue} from '../../../../services/models/filter-value';
+// import {SelectedFilter} from '../../../../services/models/selected-filter';
+import * as Keys from '../../../../core/constants/ui-constants';
+
 @Component({
   selector: 'app-activity-filters',
   templateUrl: './activity-filters.component.html',
@@ -21,19 +25,19 @@ export class ActivityFiltersComponent implements OnInit, OnChanges, OnDestroy {
   public activeMutations: string[] = [];
   public inactiveMode = 'gray';
   public referenceMode = Keys.ancestralMode;
-  public showPast = '';
-  public dateRange: string;
+  public showPast: string | null = null;
+  public dateRange: string | null = null;
   public drugGroup = 'default';
-  @Input() mutations: string[];
-  @Input() filterGroups: FilterGroup[];
-  @Input() filterResults: ActivityFilters;
+  @Input() mutations!: string[];
+  @Input() filterGroups!: FilterGroup[];
+  @Input() filterResults!: ActivityFilters;
   @Output() changeDrugFilters = new EventEmitter<string>();
   @Output() changePointFilters = new EventEmitter<ActivityFilters>();
   public control = new FormControl();
-  public filteredMutations: Observable<string[]>;
+  public filteredMutations!: Observable<string[]>;
   public selectedFilters: SelectedFilter[] = [];
   public showMutations = false;
-  private initialMutations: string[];
+  private initialMutations: string[] | null = null;
   private subReset: Subscription;
   private subMutations: Subscription;
   public disableRecentDataChecbox = false;
@@ -71,15 +75,15 @@ export class ActivityFiltersComponent implements OnInit, OnChanges, OnDestroy {
     this.resetFilters();
   }
   ngOnChanges(changes: SimpleChanges) {
-    const mutations = changes.mutations?.currentValue;
+    const mutations = changes['mutations']?.currentValue;
     if (mutations) {
       mutations.sort(
-        (a, b) => (a.match(/\d+/g)?.map(Number)[0] || 100000) - (b.match(/\d+/g)?.map(Number)[0] || 100000)
-      );
+        (((a: string, b: string) => (a.match(/\d+/g)?.map(Number)[0] || 100000) - (b.match(/\d+/g)?.map(Number)[0] || 100000)
+      )));
       this.mutations = mutations;
       if (this.initialMutations) {
         const normalizedMutations = this.initialMutations.map(m => m.toLowerCase());
-        const validMutations = mutations.filter(m => normalizedMutations.includes(m.toLowerCase()));
+        const validMutations = mutations.filter((m: string) => normalizedMutations.includes(m.toLowerCase()));
         this.activeMutations = validMutations;
         this.filterResults.selectedMutations = validMutations;
         this.initialMutations = null;
@@ -137,7 +141,7 @@ export class ActivityFiltersComponent implements OnInit, OnChanges, OnDestroy {
     this.changeDate(null);
   }
   public removeMutation(mutation: string | null) {
-    if (this.activeMutations.indexOf(mutation) > -1) {
+    if (mutation && this.activeMutations.indexOf(mutation) > -1) {
       this.activeMutations.splice(this.activeMutations.indexOf(mutation), 1);
       this.filterResults.selectedMutations = this.activeMutations;
       this.changePointFilters.emit(this.filterResults);

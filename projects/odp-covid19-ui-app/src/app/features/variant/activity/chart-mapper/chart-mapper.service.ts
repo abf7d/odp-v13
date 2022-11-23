@@ -1,13 +1,17 @@
-// @ts-nocheck
 import {Injectable} from '@angular/core';
-import {DisplayChartPoint} from '../../../../services/models/display-chart-point';
-import {Header} from '../../../../services/models/header';
-import * as Vals from '../../../../services/constants/chart-constants';
-import * as d3 from 'd3';
-import {DisplayLineage} from '../../../../services/models/display-lineage';
+// import {DisplayChartPoint} from '../../../../services/models/display-chart-point';
+// import {Header} from '../../../../services/models/header';
+// import * as Vals from '../../../../services/constants/chart-constants';
+// import * as d3 from 'd3';
+// import {DisplayLineage} from '../../../../services/models/display-lineage';
 import {Subvariant} from '../legend/legend.component';
-import { Lineage } from '../../../../lib/models/lineage/lineage';
-import { ActivityChartPoint, TherapeuticGroup } from '../../../../lib/models';
+// import { Lineage } from '../../../../lib/models/lineage/lineage';
+// import { ActivityChartPoint, TherapeuticGroup } from '../../../../lib/models';
+import * as Vals from '../../../../core/constants/ui-constants';
+import { ActivityChartPoint, Lineage, TherapeuticGroup } from 'projects/odp-covid19-ui-app/src/app/core/models';
+import { DisplayLineage } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-lineage';
+import { DisplayChartPoint } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-chart-point';
+import { Header } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header';
 @Injectable({
   providedIn: 'root'
 })
@@ -30,23 +34,25 @@ export class ChartMapperService {
   }
 
   public getHeatmapLineages(allLineages: Lineage[]) {
-    const displayLineages = allLineages.sort((a, b) => +a.viralRank - +b.viralRank);
-    const singleMutation = allLineages.find(l => l.viralLineage.toLocaleLowerCase() === Vals.singleMutation);
-    singleMutation.viralLineage = 'Single Mutation';
+    const displayLineages = allLineages.sort((a, b) => +(a.viralRank ?? 0) - +(b.viralRank ?? 0));
+    const singleMutation = allLineages.find(l => l.viralLineage?.toLocaleLowerCase() === Vals.singleMutation);
+    if (!!singleMutation) {
+      singleMutation.viralLineage = 'Single Mutation';
+    }
     return displayLineages;
   }
   public getDisplayLineages(lineages: Lineage[]): DisplayLineage[] {
     const filteredLineages = lineages
       .filter(l => {
         return (
-          l.viralClassification.toLocaleLowerCase() === Vals.variantOfConcern ||
-          l.viralClassification.toLocaleLowerCase() === Vals.variantOfInterest ||
-          l.viralClassification.toLocaleLowerCase() === Vals.otherVariant ||
-          l.viralClassification.toLocaleLowerCase() === Vals.variantBeingMonitored
+          l.viralClassification?.toLocaleLowerCase() === Vals.variantOfConcern ||
+          l.viralClassification?.toLocaleLowerCase() === Vals.variantOfInterest ||
+          l.viralClassification?.toLocaleLowerCase() === Vals.otherVariant ||
+          l.viralClassification?.toLocaleLowerCase() === Vals.variantBeingMonitored
         );
       })
-      .sort((a, b) => +a.viralRank - +b.viralRank);
-    const singleMutation = lineages.find(l => l.viralLineage.toLocaleLowerCase() === Vals.singleMutation);
+      .sort((a, b) => +(a.viralRank ?? 0) - +(b.viralRank ?? 0 ));
+    const singleMutation = lineages.find(l => l.viralLineage?.toLocaleLowerCase() === Vals.singleMutation);
     filteredLineages.unshift(Vals.allVariants);
     filteredLineages.push(Vals.whatsNew);
     const displayLineages = filteredLineages.map((l, i) => ({color: Vals.variantColors[i], ...l}));
@@ -70,7 +76,7 @@ export class ChartMapperService {
   public colorPointsBySubvariant(points: DisplayChartPoint[], subVariants: Subvariant[]) {
     const colorMap = new Map<string, string>(subVariants.map(x => [x.sublineage, x.color]));
     points.forEach((p, i) => {
-      p.variantColor = colorMap.get(p.viralSublineage);
+      p.variantColor = colorMap.get(p.viralSublineage) ?? '';
     });
   }
   public setLineagePointAndLegendColors(
@@ -84,15 +90,15 @@ export class ChartMapperService {
       colorMap = new Map<string, string>();
       let j = 0;
       lineages.forEach((l, i) => {
-        if (reportedLineages.includes(l.viralLineage)) {
+        if (reportedLineages.includes(l.viralLineage ?? '')) {
           l.color = Vals.variantColors[j];
-          colorMap.set(l.viralLineage, l.color);
+          colorMap.set(l.viralLineage ?? '', l.color);
           j++;
         }
       });
     } else {
-      colorMap = new Map<string, string>(lineages.map((x, i) => [x.viralLineage, Vals.variantColors[i]]));
-      lineages.forEach((l, i) => (l.color = colorMap.get(l.viralLineage) ?? 'black'));
+      colorMap = new Map<string, string>(lineages.map((x, i) => [x.viralLineage ?? '', Vals.variantColors[i]]));
+      lineages.forEach((l, i) => (l.color = l.viralLineage ? colorMap.get(l.viralLineage) ?? 'black': 'black'));
     }
     return points.map((p, i) => {
       return {
@@ -132,7 +138,7 @@ export class ChartMapperService {
   }
 
   public getClassification(lineage: Lineage): VariantDisplay {
-    const variant = this.classificationNames.get(lineage.viralClassification?.toLocaleLowerCase());
+    const variant = lineage.viralClassification? this.classificationNames.get(lineage.viralClassification.toLocaleLowerCase()): '';
     if (!variant) {
       return {name: 'Other Variant', color: 'black'};
     }

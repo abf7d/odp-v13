@@ -498,7 +498,7 @@ export class ActivityChartService {
     if (point.colorOverride) {
       return point.colorOverride;
     } else if (this.colorByVariant) {
-      return point.variantColor;
+      return point.variantColor ?? '';
     } else if (point.viralType.toLowerCase() === 'pseudovirus') {
       return config.pointColorPseudo;
     } else if (point.viralType.toLowerCase() === 'live virus') {
@@ -519,7 +519,7 @@ export class ActivityChartService {
       if (point.colorOverride) {
         return point.colorOverride;
       }
-      return point.variantColor;
+      return point.variantColor ?? '';
     }
     if (point.viralProteinFullPartial.toLowerCase() === 'partial variant') {
       return '#fff';

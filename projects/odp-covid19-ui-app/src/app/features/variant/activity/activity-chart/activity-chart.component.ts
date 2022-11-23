@@ -191,7 +191,7 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
     this.lineageLoading = true;
     this.classification = this.chartMapper.getClassification(lineage);
     const getLatest = lineage.viralLineage === Vals.whatsNew.viralLineage;
-    if(!lineageName) {
+    if(lineageName === null) {
       return;
     }
     this.activityPointApi.getActivityChartPoints(lineageName, false).subscribe(points => {

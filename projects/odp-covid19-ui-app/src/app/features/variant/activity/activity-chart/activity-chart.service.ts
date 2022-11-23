@@ -1,13 +1,13 @@
 import {ElementRef, Injectable} from '@angular/core';
-import { EventService } from '@labshare/base-ui-services';
+import {EventService} from '@labshare/base-ui-services';
 import * as d3 from 'd3';
-import { ActivityChartParams } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/activity-chart-params';
-import { DisplayChartPoint } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-chart-point';
-import { DisplayLineage } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-lineage';
-import { Header } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header';
-import { HeaderPos } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header-pos';
+import {ActivityChartParams} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/activity-chart-params';
+import {DisplayChartPoint} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-chart-point';
+import {DisplayLineage} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-lineage';
+import {Header} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header';
+import {HeaderPos} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header-pos';
 import {BehaviorSubject, Subscription} from 'rxjs';
-import { ActivityPointConfig, ActivityPointConfigFactory } from './config/activity-chart-config';
+import {ActivityPointConfig, ActivityPointConfigFactory} from './config/activity-chart-config';
 import * as Keys from '../../../../core/constants/ui-constants';
 // import {ActivityPointConfig, ActivityPointConfigFactory} from './activity-chart-config';
 // import {DisplayChartPoint} from '../models/display-chart-point';
@@ -39,16 +39,13 @@ export class ActivityChartService {
     this.config = configFactory.getDefaultConfig();
   }
 
-  public initSubscriptions(
-    selectedPoint: BehaviorSubject<DisplayChartPoint | null>,
-    neighbors: BehaviorSubject<DisplayChartPoint[]>
-  ) {
+  public initSubscriptions(selectedPoint: BehaviorSubject<DisplayChartPoint | null>, neighbors: BehaviorSubject<DisplayChartPoint[]>) {
     this.neighbors = neighbors;
     this.selectedPoint = selectedPoint;
     if (!this.subPoint) {
-      this.subPoint = selectedPoint.subscribe(point => {
+      this.subPoint = selectedPoint.subscribe((point) => {
         if (this.points) {
-          this.points.forEach(x => (x.selected = point === x));
+          this.points.forEach((x) => (x.selected = point === x));
           this.drawChart(this.points, this.variantName, this.inactiveMode, this.colorByVariant);
         }
       });
@@ -56,9 +53,7 @@ export class ActivityChartService {
   }
   public initChart(chart: ElementRef, headers: Header[]) {
     this.headers = headers;
-    d3.select(chart.nativeElement)
-      .selectAll('svg')
-      .remove();
+    d3.select(chart.nativeElement).selectAll('svg').remove();
     this.svg = d3
       .select(chart.nativeElement)
       .append('svg')
@@ -89,23 +84,16 @@ export class ActivityChartService {
     this.svg.selectAll('*').remove();
 
     this.headers.sort((a, b) => a.order - b.order);
-    this.headers.forEach(h => h.items?.sort((a, b) => a.order - b.order));
+    this.headers.forEach((h) => h.items?.sort((a, b) => a.order - b.order));
 
-    const headerFlatList = this.headers.reduce(
-      (acc: Header[], b: Header) => (b.showChildren ? [...acc, ...(b.items ?? [])] : acc), [])
-    this.therapeuticMetadataMap = new Map<string, Header>(headerFlatList.map(header => [header.name, header]));
-    const collapsedGroups = this.headers.filter(g => !g.showChildren);
+    const headerFlatList = this.headers.reduce((acc: Header[], b: Header) => (b.showChildren ? [...acc, ...(b.items ?? [])] : acc), []);
+    this.therapeuticMetadataMap = new Map<string, Header>(headerFlatList.map((header) => [header.name, header]));
+    const collapsedGroups = this.headers.filter((g) => !g.showChildren);
     const headerPositions = this.getAxisPositions(this.headers);
 
-    const chartHeight =
-      headerFlatList.length * this.config.rowHeight +
-      this.config.endSpaceY +
-      collapsedGroups.length * this.config.rowHeight;
+    const chartHeight = headerFlatList.length * this.config.rowHeight + this.config.endSpaceY + collapsedGroups.length * this.config.rowHeight;
 
-    const x = d3
-      .scaleLog()
-      .rangeRound([0, this.config.innerWidth])
-      .domain([0.01, this.config.maxX]);
+    const x = d3.scaleLog().rangeRound([0, this.config.innerWidth]).domain([0.01, this.config.maxX]);
 
     const chartG = this.svg
       .append('g')
@@ -119,7 +107,7 @@ export class ActivityChartService {
 
     points.sort((a, b) => (a.toggleHidden && b.toggleHidden ? 0 : a.toggleHidden ? -1 : 1));
     const allDrugs = this.headers.reduce((acc: string[], hpos: Header) => {
-      return [...acc, ...(hpos.items?.map(d => d.name) ?? [])];
+      return [...acc, ...(hpos.items?.map((d) => d.name) ?? [])];
     }, []);
     chartG
       .selectAll('g.grouped-chart')
@@ -138,10 +126,7 @@ export class ActivityChartService {
         };
         this.createGroupedChart(params);
       });
-    const globalAxesG = chartG
-      .append('g')
-      .classed('global-axes', true)
-      .attr('transform', `translate(100, 0)`);
+    const globalAxesG = chartG.append('g').classed('global-axes', true).attr('transform', `translate(100, 0)`);
     this.createGlobalAxes(globalAxesG, x, chartHeight + configRef.topChartPadding, this.config);
     const finalHeight = (chartHeight + configRef.topChartPadding + 110) * this.config.chartScale;
     this.svg.attr('height', finalHeight);
@@ -150,7 +135,7 @@ export class ActivityChartService {
   }
 
   public displayNoPointsMsg(points: DisplayChartPoint[], allDrugs: string[], chartG: any, chartHeight: number) {
-    const firstDisplayPoint = points.find(p => allDrugs.indexOf(p.drugName) !== -1 && !p.toggleHidden);
+    const firstDisplayPoint = points.find((p) => allDrugs.indexOf(p.drugName) !== -1 && !p.toggleHidden);
     if (!firstDisplayPoint) {
       const msgContainer = chartG.append('g').attr('transform', `translate(100, 0)`);
       msgContainer
@@ -186,12 +171,12 @@ export class ActivityChartService {
       .append('rect')
       .attr('x', -config.groupBoxWidth)
       .attr('y', hPos.y)
-      .attr('height', a => {
-        let height; 
-        if(hPos.group.showChildren && !!hPos.group?.items) {
-            height = hPos.group.items.length * config.rowHeight;
+      .attr('height', (a) => {
+        let height;
+        if (hPos.group.showChildren && !!hPos.group?.items) {
+          height = hPos.group.items.length * config.rowHeight;
         } else {
-            height = config.rowHeight;
+          height = config.rowHeight;
         }
         return height;
       })
@@ -203,7 +188,7 @@ export class ActivityChartService {
       .select('.y-axis')
       .append('g')
       .attr('class', 'group-name')
-      .attr('transform', (a, i) => `translate(-${config.groupBoxWidth - 10}, ${hPos.y ?? 0 + 15})`)
+      .attr('transform', (a, i) => `translate(-${config.groupBoxWidth - 10}, ${(hPos.y ?? 0) + 15})`)
       .append('text')
       .text(hPos.group.showChildren ? '- ' + hPos.group.name : '+ ' + hPos.group.name)
       .on('mousedown', (a, b) => {
@@ -221,10 +206,10 @@ export class ActivityChartService {
       .rangeRound([hPos.y ?? 0, hPos.height + (hPos.y ?? 0)])
       .padding(0.1);
 
-      if(!hPos.group?.items) {
-        return;
-      }
-    const groupItemNames = hPos.group.items.map(a => a.name);
+    if (!hPos.group?.items) {
+      return;
+    }
+    const groupItemNames = hPos.group.items.map((a) => a.name);
 
     y.domain(groupItemNames);
 
@@ -254,9 +239,7 @@ export class ActivityChartService {
         }
       });
 
-    const groupPoints = dataPoints.filter(
-      a => groupItemNames.indexOf(a.drugName) > -1 && a.drugActivity1NumericFold !== null
-    );
+    const groupPoints = dataPoints.filter((a) => groupItemNames.indexOf(a.drugName) > -1 && a.drugActivity1NumericFold !== null);
 
     const boundX = (a: any) => {
       let cx = +a.drugActivity1NumericFold;
@@ -277,12 +260,12 @@ export class ActivityChartService {
       .data(groupItemNames)
       .enter()
       .append('line')
-      .classed('selected-drug', d => d === this.selectedTherapeuticName)
-      .style('stroke-dasharray', a => (groupPoints.filter(b => b.drugName === a).length === 0 ? '5,5' : ''))
+      .classed('selected-drug', (d) => d === this.selectedTherapeuticName)
+      .style('stroke-dasharray', (a) => (groupPoints.filter((b) => b.drugName === a).length === 0 ? '5,5' : ''))
       .attr('x1', 0)
-      .attr('y1', (a: string) => y(a) ?? 0 + 15)
+      .attr('y1', (a: string) => (y(a) ?? 0) + 15)
       .attr('x2', config.innerWidth)
-      .attr('y2', (a: string) => y(a) ?? 0  + 15);
+      .attr('y2', (a: string) => (y(a) ?? 0) + 15);
 
     // chart points
     const ptGroups = gEl
@@ -293,7 +276,7 @@ export class ActivityChartService {
       .enter()
       .append('g')
       .classed('point', true)
-      .classed('selected', a => a.selected)
+      .classed('selected', (a) => a.selected)
       .on('mousedown', (a, b) => this.pointSelect(b, groupPoints, dataPoints, x))
       .on('mouseover', (a, b) => {
         const xPos = boundX(b);
@@ -302,7 +285,7 @@ export class ActivityChartService {
           .lower()
           .classed('hover', true)
           .attr('cx', xPos)
-          .attr('cy', y(b.drugName) ?? 0 + 15)
+          .attr('cy', (y(b.drugName) ?? 0) + 15)
           .attr('r', 15);
       })
       .on('mouseout', (a, b) => {
@@ -314,21 +297,21 @@ export class ActivityChartService {
     const selected = gEl.selectAll<SVGElement, DisplayChartPoint>('g.selected');
     selected
       .append('circle')
-      .classed('test', a => a.selected)
-      .classed('hide-point', a => this.inactiveMode === 'remove' && !!a.colorOverride)
+      .classed('test', (a) => a.selected)
+      .classed('hide-point', (a) => this.inactiveMode === 'remove' && !!a.colorOverride)
       .attr('cx', boundX)
-      .attr('cy', a => y(a.drugName) ?? 0 + 15)
-      .style('stroke-width', a => (a.size ? 4 : 5))
+      .attr('cy', (a) => (y(a.drugName) ?? 0) + 15)
+      .style('stroke-width', (a) => (a.size ? 4 : 5))
       .style('stroke', '#C0E275')
-      .style('fill', a => '#C0E275')
-      .attr('r', a => (a.size ? a.size + 5 : 11));
+      .style('fill', (a) => '#C0E275')
+      .attr('r', (a) => (a.size ? a.size + 5 : 11));
 
     selected
       .append('line')
       .attr('x1', boundX)
       .attr('x2', boundX)
-      .attr('y1', a => y(a.drugName) ?? 0 + -5)
-      .attr('y2', a => y(a.drugName) ?? 0 + 35)
+      .attr('y1', (a) => (y(a.drugName) ?? 0) + -5)
+      .attr('y2', (a) => (y(a.drugName) ?? 0) + 35)
       .attr('height', 10)
       .style('stroke', 'white')
       .style('stroke-width', 3)
@@ -337,39 +320,35 @@ export class ActivityChartService {
     // Normal circle
     ptGroups
       .append('circle')
-      .classed('selected', a => a.selected)
-      .classed('hide-point', a => this.inactiveMode === 'remove' && a.toggleHidden)
+      .classed('selected', (a) => a.selected)
+      .classed('hide-point', (a) => this.inactiveMode === 'remove' && a.toggleHidden)
       .attr('cx', boundX)
-      .attr('cy', a => y(a.drugName) ?? 0 + 15)
-      .style('stroke', a => this.getStroke(a))
-      .style('fill', a => this.getFill(a))
-      .attr('r', a => a.size ?? config.pointRadius);
+      .attr('cy', (a) => (y(a.drugName) ?? 0) + 15)
+      .style('stroke', (a) => this.getStroke(a))
+      .style('fill', (a) => this.getFill(a))
+      .attr('r', (a) => a.size ?? config.pointRadius);
   }
 
   private truncateLabel(labels: any) {
-    labels.each(function() {
-        // @ts-ignore
+    labels.each(function () {
+      // @ts-ignore
       const therapeuticName = d3.select(this).text();
       let renderName = therapeuticName;
 
       if (therapeuticName.length > 29) {
         renderName = renderName.slice(0, 26) + '...';
       }
-       // @ts-ignore
+      // @ts-ignore
       d3.select(this).text(renderName);
       if (therapeuticName.length > 29) {
-         // @ts-ignore
-        d3.select(this)
-          .append('title')
-          .append('text')
-          .text(therapeuticName);
+        // @ts-ignore
+        d3.select(this).append('title').append('text').text(therapeuticName);
       }
     });
   }
 
   public mouseOutTherapeutic(event: any, d: any) {
-    const parent = d3.select(event.currentTarget).node().parentNode.parentNode.parentNode.parentNode.parentNode
-      .parentNode;
+    const parent = d3.select(event.currentTarget).node().parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
     const popup = d3.select(parent).selectAll('.popup');
     popup.remove();
   }
@@ -377,24 +356,19 @@ export class ActivityChartService {
   public mouseOverTherapeutic(event: any, d: any) {
     const metadata = this.therapeuticMetadataMap.get(d);
     if (!metadata) {
-        return;
+      return;
     }
-    const parent = d3.select(event.currentTarget).node().parentNode.parentNode.parentNode.parentNode.parentNode
-      .parentNode;
+    const parent = d3.select(event.currentTarget).node().parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
     d3.select(event.target).classed('hover-square', false);
     const popup = d3.select(parent).selectAll('.popup');
     const width = d.length > 20 ? 400 : 300;
     popup.remove();
     const point = d3.pointer(event, parent);
-    d3.select(parent)
-      .append('g')
-      .classed('popup', true)
-      .html(this.getSelectedPointTemplate(d, width, point[0], point[1], metadata));
+    d3.select(parent).append('g').classed('popup', true).html(this.getSelectedPointTemplate(d, width, point[0], point[1], metadata));
   }
 
   private getSelectedPointTemplate(d: any, width: number, x: number, y: number, metadata: Header) {
-    const isChrome =
-      navigator.userAgent.toLowerCase().indexOf('chrome') > -1 && navigator.vendor.toLowerCase().indexOf('google') > -1;
+    const isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1 && navigator.vendor.toLowerCase().indexOf('google') > -1;
     const border = !isChrome ? 'border: 1px solid #333;' : '';
     return `
   <foreignobject  class="node mouseover" x="${x + 30}" y="${y}" width="${width + 20}" height="200">
@@ -422,15 +396,13 @@ export class ActivityChartService {
     }
 
     const pointSelected = b.selected;
-    dataPoints.forEach(p => (p.selected = false));
+    dataPoints.forEach((p) => (p.selected = false));
     b.selected = !pointSelected;
     if (b.selected) {
-      const neighbors = groupPoints.filter(p => {
+      const neighbors = groupPoints.filter((p) => {
         const sameDrug = p.drugName === b.drugName;
         const radius = p.size ? p.size : this.config.pointRadius;
-        const distanceBtwPointsInPixels = Math.abs(
-          x(Math.min(+p.drugActivity1NumericFold, 1000)) - x(Math.min(+b.drugActivity1NumericFold, 1000))
-        );
+        const distanceBtwPointsInPixels = Math.abs(x(Math.min(+p.drugActivity1NumericFold, 1000)) - x(Math.min(+b.drugActivity1NumericFold, 1000)));
         return sameDrug && distanceBtwPointsInPixels < radius * 2 && b !== p;
       });
 
@@ -460,14 +432,8 @@ export class ActivityChartService {
       .attr('x2', '0%')
       .attr('y1', '100%')
       .attr('y2', '0%');
-    grad
-      .append('stop')
-      .attr('offset', '50%')
-      .style('stop-color', 'white');
-    grad
-      .append('stop')
-      .attr('offset', '50%')
-      .style('stop-color', config.pointColorPseudo);
+    grad.append('stop').attr('offset', '50%').style('stop-color', 'white');
+    grad.append('stop').attr('offset', '50%').style('stop-color', config.pointColorPseudo);
 
     const gradLive = gGrad
       .append('defs')
@@ -477,14 +443,8 @@ export class ActivityChartService {
       .attr('x2', '0%')
       .attr('y1', '100%')
       .attr('y2', '0%');
-    gradLive
-      .append('stop')
-      .attr('offset', '50%')
-      .style('stop-color', 'white');
-    gradLive
-      .append('stop')
-      .attr('offset', '50%')
-      .style('stop-color', config.pointColorLive);
+    gradLive.append('stop').attr('offset', '50%').style('stop-color', 'white');
+    gradLive.append('stop').attr('offset', '50%').style('stop-color', config.pointColorLive);
   }
 
   /**
@@ -555,7 +515,7 @@ export class ActivityChartService {
       .classed('bottom-x', true)
       .attr('transform', `translate(0,${topHeight})`)
       .call(
-        d3.axisBottom(x).tickFormat(d => {
+        d3.axisBottom(x).tickFormat((d) => {
           if (d === 0.01) {
             return x.tickFormat(2, '.2f')(d);
           } else if (d === 0.1) {
@@ -570,7 +530,7 @@ export class ActivityChartService {
       .classed('top-x', true)
       .attr('transform', `translate(0,0)`)
       .call(
-        d3.axisTop(x).tickFormat(d => {
+        d3.axisTop(x).tickFormat((d) => {
           if (d === 0.01) {
             return x.tickFormat(2, '.2f')(d);
           } else if (d === 0.1) {
@@ -580,25 +540,9 @@ export class ActivityChartService {
           }
         })
       );
-    svgChart
-      .append('g')
-      .attr('class', 'y-line')
-      .append('line')
-      .attr('x1', 0)
-      .attr('y1', 0)
-      .attr('x2', 0)
-      .attr('y2', topHeight)
-      .append('g');
+    svgChart.append('g').attr('class', 'y-line').append('line').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', topHeight).append('g');
 
-    svgChart
-      .append('g')
-      .attr('class', 'y-guide-1')
-      .append('line')
-      .attr('x1', x(1))
-      .attr('y1', 0)
-      .attr('x2', x(1))
-      .attr('y2', topHeight)
-      .append('g');
+    svgChart.append('g').attr('class', 'y-guide-1').append('line').attr('x1', x(1)).attr('y1', 0).attr('x2', x(1)).attr('y2', topHeight).append('g');
 
     const xTitle = xaxisGroup.append('g').classed('x-title', true);
 
@@ -615,19 +559,12 @@ export class ActivityChartService {
     xTitle
       .append('text')
       .classed('x-sub-title', true)
-      .attr(
-        'transform',
-        `translate(0,${topHeight + config.xDescriptorHeightOffset + config.xMainTitleHeightOffset + 20})`
-      )
+      .attr('transform', `translate(0,${topHeight + config.xDescriptorHeightOffset + config.xMainTitleHeightOffset + 20})`)
       .text('(variant vs wild type)');
   }
 
   private createXAxisLabels(xTitle: any, leftSide: number, topHeight: number) {
-    xTitle
-      .append('text')
-      .text('Fold reduction')
-      .style('font-weight', 'bold')
-      .attr('transform', `translate(${-128},${-8})`);
+    xTitle.append('text').text('Fold reduction').style('font-weight', 'bold').attr('transform', `translate(${-128},${-8})`);
     xTitle
       .append('text')
       .text('Fold reduction')
@@ -703,7 +640,7 @@ export class ActivityChartService {
   private getAxisPositions(groups: Header[]): HeaderPos[] {
     const groupPos: HeaderPos[] = [];
     for (const group of groups) {
-      const height = group.showChildren ? group.items?.length ?? 0 * this.config.rowHeight : this.config.rowHeight;
+      const height = group.showChildren ? (group.items?.length ?? 0) * this.config.rowHeight : this.config.rowHeight;
       groupPos.push({height, group, y: null});
     }
     let tracker = 0;
@@ -716,7 +653,7 @@ export class ActivityChartService {
       g.y = tracker;
       let hTracker = 0;
       if (g.group?.showChildren) {
-        g.group.items?.forEach(h => {
+        g.group.items?.forEach((h) => {
           h.y = hTracker;
           hTracker += this.config.rowHeight;
         });

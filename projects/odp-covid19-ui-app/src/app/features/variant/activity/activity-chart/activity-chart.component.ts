@@ -14,23 +14,22 @@ import {filter, first} from 'rxjs/operators';
 // import {BeeswarmUiService} from '../../../../services/beeswarm-ui/beeswarm-ui.service';
 import {Subvariant} from '../legend/legend.component';
 import {line} from 'd3';
-import { TherapeuticItem } from 'projects/odp-covid19-ui-app/src/app/core/models/dtos/therapeutics/therapeutic-group';
-import { DisplayLineage } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-lineage';
-import { DisplayChartPoint } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-chart-point';
-import { FilterGroup } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/filter-group';
+import {TherapeuticItem} from 'projects/odp-covid19-ui-app/src/app/core/models/dtos/therapeutics/therapeutic-group';
+import {DisplayLineage} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-lineage';
+import {DisplayChartPoint} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-chart-point';
+import {FilterGroup} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/filter-group';
 // import { TherapeuticItem } from '../../../../lib/models';
 // import { VariantApiService } from '../../../../lib/api/variant-api/variant-api.service';
-import * as Vals from '../../../../core/constants/ui-constants';//services'/constants/chart-constants';
-import { ActivityFilters } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/activity-filters';
-import { Header } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header';
-import { ActivityChartService } from './activity-chart.service';
-import { BeeswarmChartService } from './beeswarm-chart.service';
-import { VariantFilterService } from './variant-filter.service';
-import { AssayApiService } from 'projects/odp-covid19-ui-app/src/app/core/services/api/assay-api/assay-api.service';
-import { LineageApiService } from 'projects/odp-covid19-ui-app/src/app/core/services/api/lineage-api/lineage-api.service';
-import { TherapeuticApiService } from 'projects/odp-covid19-ui-app/src/app/core/services/api/therapeutic-api/therapeutic-api.service';
-import { ActivityPointApiService } from 'projects/odp-covid19-ui-app/src/app/core/services/api/activity-point-api/activity-point-api.service';
-
+import * as Vals from '../../../../core/constants/ui-constants'; //services'/constants/chart-constants';
+import {ActivityFilters} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/activity-filters';
+import {Header} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header';
+import {ActivityChartService} from './activity-chart.service';
+import {BeeswarmChartService} from './beeswarm-chart.service';
+import {VariantFilterService} from './variant-filter.service';
+import {AssayApiService} from 'projects/odp-covid19-ui-app/src/app/core/services/api/assay-api/assay-api.service';
+import {LineageApiService} from 'projects/odp-covid19-ui-app/src/app/core/services/api/lineage-api/lineage-api.service';
+import {TherapeuticApiService} from 'projects/odp-covid19-ui-app/src/app/core/services/api/therapeutic-api/therapeutic-api.service';
+import {ActivityPointApiService} from 'projects/odp-covid19-ui-app/src/app/core/services/api/activity-point-api/activity-point-api.service';
 
 @Component({
   selector: 'app-activity-chart',
@@ -103,15 +102,15 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
     forkJoin([lineages$, assayDefs$, drugGroups$, queryParams$.pipe(first())]).subscribe(
       ([lineages, assayDefs, drugGroups, queryParams]) => {
         this.dataLoading = false;
-        this.assayDefinitions = new Map(assayDefs.map(x => [x.category, x.id]));
+        this.assayDefinitions = new Map(assayDefs.map((x) => [x.category, x.id]));
         // @ts-ignore
         const flatDrugs = drugGroups.data.reduce((acc, b) => [...acc, ...b.drugs], []) as TherapeuticItem[];
-        this.therapeuticMap = new Map<string, TherapeuticItem>(flatDrugs.map(d => [d.drugName, d]));
+        this.therapeuticMap = new Map<string, TherapeuticItem>(flatDrugs.map((d) => [d.drugName, d]));
         this.therapeuticGroups = this.chartMapper.mapToTherapeuticGroups(drugGroups.data);
         const defaultTherapeutics = this.filters.filterTherapeutics(Vals.defaultDrugs, this.therapeuticGroups, null);
         this.displayLineages = this.chartMapper.getDisplayLineages(lineages);
-        const lineagesFiltered = lineages.filter(x => !!x.viralLineage && !!x.viralClassification);
-        this.referenceLineages = new Map<string, string>(lineagesFiltered.map(x => [x.viralLineage ?? '', x.viralClassification ?? '']));
+        const lineagesFiltered = lineages.filter((x) => !!x.viralLineage && !!x.viralClassification);
+        this.referenceLineages = new Map<string, string>(lineagesFiltered.map((x) => [x.viralLineage ?? '', x.viralClassification ?? '']));
         this.activityChartUI.initSubscriptions(this.selectedDataPoint, this.neighbors);
         this.activityChartUI.initChart(this.chart, defaultTherapeutics ?? []);
         this.beeswarmUI.initChart(this.bChart, this.selectedDataPoint, this.neighbors);
@@ -122,8 +121,8 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
         this.loadLineage(variant || this.displayLineages[0], isInitialLoad);
         this.selectedTherapeuticSub = this.eventService
           .get(Vals.selectedTherapeuticKey)
-          .pipe(filter(x => x !== undefined))
-          .subscribe(therapeutic => {
+          .pipe(filter((x) => x !== undefined))
+          .subscribe((therapeutic) => {
             if (this.displayPoints !== undefined) {
               this.filters.filterPoints(
                 this.displayPoints,
@@ -135,16 +134,11 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
                 this.referenceLineages
               );
               const metadata = this.therapeuticMap.get(therapeutic) ?? null;
-              this.beeswarmUI.drawChart(
-                this.displayPoints,
-                this.filterState.filterBehavior,
-                this.colorByLineage,
-                metadata
-              );
+              this.beeswarmUI.drawChart(this.displayPoints, this.filterState.filterBehavior, this.colorByLineage, metadata);
             }
           });
       },
-      error => (this.error = true)
+      (error) => (this.error = true)
     );
   }
   public ngOnDestroy() {
@@ -161,13 +155,8 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
   }
 
   private getRouteVariant(variantParam: string, lineages: DisplayLineage[]): DisplayLineage | undefined {
-    return lineages.find(l => {
-      const noSpecial = l.viralLineage
-        ?.replace(/\./g, '')
-        .replace(/\?/g, '')
-        .replace(/\'/g, '')
-        .replace(/\//g, '')
-        .replace(/ /g, '');
+    return lineages.find((l) => {
+      const noSpecial = l.viralLineage?.replace(/\./g, '').replace(/\?/g, '').replace(/\'/g, '').replace(/\//g, '').replace(/ /g, '');
       const normalized = noSpecial?.toLowerCase();
       return normalized === variantParam;
     });
@@ -185,21 +174,19 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
   public loadLineage(lineage: DisplayLineage, isInitialLoad: boolean = false): void {
     this.resetPageState(lineage);
     const lineageName =
-      lineage.viralLineage === Vals.allVariants.viralLineage || lineage.viralLineage === Vals.whatsNew.viralLineage
-        ? ''
-        : lineage.viralLineage;
+      lineage.viralLineage === Vals.allVariants.viralLineage || lineage.viralLineage === Vals.whatsNew.viralLineage ? '' : lineage.viralLineage;
     this.lineageLoading = true;
     this.classification = this.chartMapper.getClassification(lineage);
     const getLatest = lineage.viralLineage === Vals.whatsNew.viralLineage;
-    if(lineageName === null) {
+    if (lineageName === null) {
       return;
     }
-    this.activityPointApi.getActivityChartPoints(lineageName, false).subscribe(points => {
+    this.activityPointApi.getActivityChartPoints(lineageName, false).subscribe((points) => {
       this.lineageLoading = false;
       if (lineage.viralLineage === Vals.allVariants.viralLineage) {
-        points = points.filter(x => x.viralProteinFullPartial.toLowerCase() !== 'single mutation variant');
+        points = points.filter((x) => x.viralProteinFullPartial.toLowerCase() !== 'single mutation variant');
       }
-      points.forEach(p => (p.assayId = this.assayDefinitions.get(p.assayType)));
+      points.forEach((p) => (p.assayId = this.assayDefinitions.get(p.assayType)));
       this.displayPoints = this.chartMapper.getDisplayPoints(points);
       if (lineage.viralLineage === Vals.whatsNew.viralLineage) {
         this.displayPoints = this.filters.filterMostRecent(this.displayPoints);
@@ -220,11 +207,7 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
       }
       // gets subvariant colors for legend which are passed to legend component
       this.subvariants = this.chartMapper.getSubvariants(points);
-      this.displayPoints = this.chartMapper.setLineagePointAndLegendColors(
-        this.displayPoints,
-        this.displayLineages,
-        lineage
-      );
+      this.displayPoints = this.chartMapper.setLineagePointAndLegendColors(this.displayPoints, this.displayLineages, lineage);
       this.mutations = this.filters.initMutations(this.displayPoints);
       this.filters.setFilterCounts(this.displayPoints, this.filterGroups);
       this.eventService.get(Vals.resetFiltersKey).next(lineage.viralLineage);
@@ -250,12 +233,8 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
     );
 
     if (this.activeLineage.viralLineage !== Vals.whatsNew.viralLineage || isInitialLoad) {
-      const therapeuticGroups = this.filters.filterTherapeutics(
-        this.lastTherapeuticFilterGroup,
-        this.therapeuticGroups,
-        this.displayPoints
-      );
-      if(therapeuticGroups) {
+      const therapeuticGroups = this.filters.filterTherapeutics(this.lastTherapeuticFilterGroup, this.therapeuticGroups, this.displayPoints);
+      if (therapeuticGroups) {
         this.activityChartUI.initChart(this.chart, therapeuticGroups);
       }
     }
@@ -265,14 +244,9 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
       this.activeLineage.viralLineage === Vals.allVariants.viralLineage ||
       this.isSubLegend;
 
-      if (this.activeLineage.viralLineage){
-      this.activityChartUI.drawChart(
-        this.displayPoints,
-        this.activeLineage.viralLineage,
-        this.filterState.filterBehavior,
-        this.colorByLineage
-      );
-    };
+    if (this.activeLineage.viralLineage) {
+      this.activityChartUI.drawChart(this.displayPoints, this.activeLineage.viralLineage, this.filterState.filterBehavior, this.colorByLineage);
+    }
     const therapeutic = this.eventService.get(Vals.selectedTherapeuticKey).getValue();
     const metadata = this.therapeuticMap.get(therapeutic) ?? null;
     this.beeswarmUI.drawChart(this.displayPoints, this.filterState.filterBehavior, this.colorByLineage, metadata);
@@ -297,10 +271,7 @@ export class ActivityChartComponent implements OnInit, OnDestroy {
     this.refreshChart();
   }
   public setSubLegend(subLegend: boolean) {
-    if (
-      this.activeLineage.viralLineage === Vals.allVariants.viralLineage ||
-      this.activeLineage.viralLineage === Vals.whatsNew.viralLineage
-    ) {
+    if (this.activeLineage.viralLineage === Vals.allVariants.viralLineage || this.activeLineage.viralLineage === Vals.whatsNew.viralLineage) {
       this.isSubLegend = false;
     } else {
       this.isSubLegend = subLegend;

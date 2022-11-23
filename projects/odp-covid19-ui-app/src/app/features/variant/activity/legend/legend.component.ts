@@ -28,7 +28,7 @@ export class LegendComponent implements OnInit, OnChanges {
   public ngOnInit(): void {}
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes['variants'].currentValue) {
+    if (changes['variants']?.currentValue) {
       this.filteredLineages = changes['variants'].currentValue.filter(
         (x: any) => x.viralLineage !== CONST.whatsNew.viralLineage && x.viralLineage !== CONST.allVariants.viralLineage
       );

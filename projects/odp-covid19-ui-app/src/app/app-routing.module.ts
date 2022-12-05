@@ -177,10 +177,19 @@ const routes: Routes = [
       }
     ]
   },
+  // {
+  //   path: 'activity',
+  //   component: ActivityComponent
+  // },
+
+
   {
     path: 'activity',
-    component: ActivityComponent
-  },
+    // See if below works because the file contains 2 modules
+    loadChildren: () => import('./modules/activity-route.module').then(m => m.ActivityRouteModule),
+},
+
+
   // {
   //   path: 'in-vivo',
   //   component: InVivoGridComponent

@@ -53,7 +53,7 @@ import { FixedHeaderComponent } from './fixed-header/fixed-header.component';
   ],
   imports: [
     CommonModule,
-    BrowserModule,
+    // BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatTableModule,

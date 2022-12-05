@@ -99,7 +99,7 @@ export class ActivityFiltersComponent implements OnInit, OnChanges, OnDestroy {
     return value.toLowerCase().replace(/\s/g, '');
   }
   public setInactivePointVisibility(event: any): void {
-    const mode = event?.returnValue;
+    const mode = event?.value;
     this.inactiveMode = mode;
     this.filterResults.filterBehavior = mode;
     this.changePointFilters.emit(this.filterResults);

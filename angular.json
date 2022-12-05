@@ -106,6 +106,68 @@
           }
         }
       }
+    },
+    "shared": {
+      "projectType": "library",
+      "root": "projects/shared",
+      "sourceRoot": "projects/shared/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/shared/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/shared/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/shared/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/shared/src/test.ts",
+            "tsConfig": "projects/shared/tsconfig.spec.json",
+            "karmaConfig": "projects/shared/karma.conf.js"
+          }
+        }
+      }
+    },
+    "covid": {
+      "projectType": "library",
+      "root": "projects/covid",
+      "sourceRoot": "projects/covid/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/covid/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/covid/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/covid/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/covid/src/test.ts",
+            "tsConfig": "projects/covid/tsconfig.spec.json",
+            "karmaConfig": "projects/covid/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "odp-covid19-ui-app"

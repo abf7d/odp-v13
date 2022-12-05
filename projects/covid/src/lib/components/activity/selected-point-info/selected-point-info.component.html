@@ -1,0 +1,88 @@
+<ng-container *ngIf="!!point">
+<div class="point-info point-area mr-4 mb-4" [class.selected]="selected">
+  <div>
+    <span>Viral Lineage:</span> {{ point?.viralLineage }}
+    <svg width="20px" height="20px">
+      <circle
+        r="5"
+        cx="10"
+        cy="10"
+        [ngStyle]="{stroke: colorByVariant && !!point ? point.variantColor : '', 
+                  fill: colorByVariant && !!point ? point.variantColor : fill}"
+        [ngClass]="circleClass"
+      ></circle>
+    </svg>
+  </div>
+  <div><span>Sublineage Group:</span> {{ point?.viralSublineage  }}</div>
+  <div><span>Sublineage:</span> {{ point?.viralName }}</div>
+  <div><span>Viral Type:</span> {{ point?.viralType }}</div>
+  <div><span>Full / Partial Variant:</span> {{ point?.viralProteinFullPartial }}</div>
+  <div>
+    <span>Fold Change:</span>
+    {{ parseNumber(point?.drugActivity1NumericFold ?? 'null') >= 1000 ? '>=1000' : point?.drugActivity1NumericFold }}
+  </div>
+  <div><span>Therapeutic Name:</span> {{ point?.drugName }}</div>
+  <div><span>Therapeutic Class:</span> {{ point?.drugClass }}</div>
+  <div *ngIf="!!point?.drugRef"><span>Reference Strain Used:</span> {{ point?.drugRef }}</div>
+  <div class="info-span">
+    <span>Data Source: </span>
+    <app-external-link
+      class="data-source-link"
+      *ngIf="point?.dataSourceUrls?.length === 1"
+      [url]="point?.dataSourceUrls?.[0]"
+      [text]="point?.dataTitle"
+    ></app-external-link>
+    <div class="d-inline" *ngIf="!point.dataSourceUrls || point.dataSourceUrls?.length === 0">
+      {{ point.dataTitle }}
+    </div>
+    <div class="d-inline" *ngIf="!!point.dataSourceUrls && point.dataSourceUrls.length > 1">
+      {{ point.dataTitle }}
+      <a (click)="displayUrls = !displayUrls" href="javascript:void(0)">{{
+        displayUrls ? '(hide sources)' : '(show sources)'
+      }}</a>
+    </div>
+    <div class="pt-2 pl-2" [hidden]="!displayUrls">
+      <div *ngFor="let url of point.dataSourceUrls; index as i">
+        <app-external-link
+          class="data-source-link"
+          [url]="url"
+          [text]="'Data Source Link ' + (i + 1).toString()"
+        ></app-external-link>
+      </div>
+    </div>
+  </div>
+  <div class="info-span">
+    <span>Data Source Type: </span>
+    <div class="d-inline">{{ point.dataSourceType }}</div>
+  </div>
+  <div class="info-span">
+    <span>Data Uploaded: </span>
+    <div class="d-inline">{{ point.dataUpdatedDate }}</div>
+  </div>
+  <div class="info-span">
+    <span>Assay: </span>
+    <div class="d-inline">
+      <a target="_blank" [routerLink]="['/assays', point.assayId, point.assayType]">{{ point.assayType }}</a>
+    </div>
+  </div>
+  <div class="info-span"><span>Spike Mutations:</span> {{ point.viralAaMutation }}</div>
+  <div class="info-span">
+    <span>Dataset:</span>
+    <a [routerLink]="['/datasets']" [queryParams]="{id: point.reportNumber}" [ngClass]="circleClass" class="btn"
+      >View in Dataset Browser</a
+    >
+  </div>
+  <div style="display: none;">
+    <div class="d-flex warning-box p-2">
+      <div><div class="mb-3 pr-2 fas fa-exclamation-triangle font-color-gold"></div></div>
+      <div>
+        <div>
+          <span class="font-weight-bold">Note:</span> the therapeutic developer has noted that this data point appears
+          inconsistent with internal activity data
+        </div>
+        <div class="warning-link"><a href="#">(Click here to read more about viral assays and interpretation)</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>

@@ -1,0 +1,104 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav [(opened)]="isopen" position="end">
+    <mat-nav-list>
+      <div class="container border-bottom">
+        <div class="row">
+          <div class="col-10 py-4 sidenav-title">OpenData Portal</div>
+          <button class="col-2 py-4 close-btn" (click)="sidenav.toggle(); menuPanel.closeAll()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <mat-accordion mat-list-item multi>
+        <span *ngFor="let item of menuitems?.menu">
+          <div *ngIf="!item.dropdown">
+            <span *ngIf="item.external">
+              <a
+                (click)="sidenav.toggle(); menuPanel.closeAll()"
+                class="border-bottom"
+                mat-list-item
+                href="{{ item.href }}"
+                >{{ item.name }}</a
+              >
+            </span>
+            <span *ngIf="!item.external">
+              <a
+                (click)="sidenav.toggle(); menuPanel.closeAll()"
+                class="border-bottom"
+                mat-list-item
+                routerLink="{{ item.href }}"
+                >{{ item.name }}</a
+              >
+            </span>
+          </div>
+
+          <div *ngIf="item.dropdown">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-white">
+                  <a (click)="menuPanel.closeAll()">{{ item.name }}</a>
+                  <i *ngIf="!panelOpenState" class="fas fa-caret-down "></i>
+                  <i *ngIf="panelOpenState" class="fas fa-caret-up "></i>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="expanded-menu-container">
+                <span *ngFor="let sub of item.dropdown">
+                  <div *ngIf="!sub.dropdown">
+                    <span *ngIf="sub.external">
+                      <a (click)="sidenav.toggle(); menuPanel.closeAll()" mat-list-item href="{{ sub.href }}">{{
+                        sub.name
+                      }}</a>
+                    </span>
+                    <span *ngIf="!sub.external">
+                      <a (click)="sidenav.toggle(); menuPanel.closeAll()" mat-list-item routerLink="{{ sub.href }}">{{
+                        sub.name
+                      }}</a>
+                    </span>
+                  </div>
+                  <div *ngIf="sub.dropdown">
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" hideToggle>
+                      <mat-expansion-panel-header class="secSub-title">
+                        <mat-panel-title class="text-white">
+                          <a (click)="menuPanel.closeAll()">{{ sub.name }}</a>
+                          <i *ngIf="!panelOpenState" class="fas fa-caret-down "></i>
+                          <i *ngIf="panelOpenState" class="fas fa-caret-up "></i>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="expanded-menu-container">
+                        <span *ngFor="let secSub of sub.dropdown">
+                          <span *ngIf="secSub.external">
+                            <a
+                              class="secSub-Item"
+                              (click)="sidenav.toggle(); menuPanel.closeAll()"
+                              mat-list-item
+                              href="{{ secSub.href }}"
+                              >{{ secSub.name }}</a
+                            >
+                          </span>
+                          <span *ngIf="!secSub.external">
+                            <a
+                              class="secSub-Item"
+                              (click)="sidenav.toggle(); menuPanel.closeAll()"
+                              mat-list-item
+                              routerLink="{{ secSub.href }}"
+                              >{{ secSub.name }}</a
+                            >
+                          </span>
+                        </span>
+                      </div>
+                    </mat-expansion-panel>
+                  </div>
+                </span>
+              </div>
+            </mat-expansion-panel>
+          </div>
+        </span>
+      </mat-accordion>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -137,7 +137,7 @@ let APP_CONF = {
   imports: [
     // SharedModule,
     
-    FeaturesModule,
+    // FeaturesModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,

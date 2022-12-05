@@ -1,7 +1,7 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import { AssayApiService } from '../../../core/services/api/assay-api/assay-api.service';
+import { Assay, AssayApiService } from '@odp/covid';
 
 @Component({
   selector: 'app-overview',

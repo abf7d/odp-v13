@@ -40,6 +40,7 @@ import { FixedHeaderComponent } from './fixed-header/fixed-header.component';
     MatSidenavModule,
     MatIconModule,
     MatExpansionModule,
+    // FooterModule,
   ], exports: [
     MobileMenuComponent,
     HeaderViewComponent,
@@ -48,7 +49,8 @@ import { FixedHeaderComponent } from './fixed-header/fixed-header.component';
     ExternalLinkComponent,
     LoaderComponent,
     FixedHeaderComponent,
-    FixedMenuComponent
+    FixedMenuComponent,
+    FooterViewComponent
   ]
 })
 export class SharedModule { }

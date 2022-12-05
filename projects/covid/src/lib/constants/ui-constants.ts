@@ -1,4 +1,4 @@
-import { Lineage } from "../models/dtos/lineage/lineage";
+import { Lineage } from '../models/dtos/lineage/lineage';
 import { FilterGroup } from "../models/view-models/filter-group";
 
 export const fadeColor = '#ddd';

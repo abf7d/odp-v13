@@ -14,22 +14,22 @@ import {filter, first} from 'rxjs/operators';
 // import {BeeswarmUiService} from '../../../../services/beeswarm-ui/beeswarm-ui.service';
 import {Subvariant} from '../legend/legend.component';
 import {line} from 'd3';
-import {TherapeuticItem} from 'projects/odp-covid19-ui-app/src/app/core/models/dtos/therapeutics/therapeutic-group';
-import {DisplayLineage} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-lineage';
-import {DisplayChartPoint} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-chart-point';
-import {FilterGroup} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/filter-group';
+import {TherapeuticItem} from '../../../models/dtos/therapeutics/therapeutic-group';
+import {DisplayLineage} from '../../../models/view-models/display-lineage';
+import {DisplayChartPoint} from '../../../models/view-models/display-chart-point';
+import {FilterGroup} from '../../../models/view-models/filter-group';
 // import { TherapeuticItem } from '../../../../lib/models';
 // import { VariantApiService } from '../../../../lib/api/variant-api/variant-api.service';
 import * as Vals from '../../../constants/ui-constants'; //services'/constants/chart-constants';
-import {ActivityFilters} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/activity-filters';
-import {Header} from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header';
+import {ActivityFilters} from '../../../models/view-models/activity-filters';
+import {Header} from '../../../models/view-models/header';
 import {ActivityChartService} from './activity-chart.service';
 import {BeeswarmChartService} from './beeswarm-chart.service';
 import {VariantFilterService} from './variant-filter.service';
-import {AssayApiService} from 'projects/odp-covid19-ui-app/src/app/core/services/api/assay-api/assay-api.service';
-import {LineageApiService} from 'projects/odp-covid19-ui-app/src/app/core/services/api/lineage-api/lineage-api.service';
-import {TherapeuticApiService} from 'projects/odp-covid19-ui-app/src/app/core/services/api/therapeutic-api/therapeutic-api.service';
-import {ActivityPointApiService} from 'projects/odp-covid19-ui-app/src/app/core/services/api/activity-point-api/activity-point-api.service';
+import {AssayApiService} from '../../../services/api/assay-api/assay-api.service';
+import {LineageApiService} from '../../../services/api/lineage-api/lineage-api.service';
+import {TherapeuticApiService} from '../../../services/api/therapeutic-api/therapeutic-api.service';
+import {ActivityPointApiService} from '../../../services/api/activity-point-api/activity-point-api.service';
 
 @Component({
   selector: 'app-activity-chart',

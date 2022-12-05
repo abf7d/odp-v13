@@ -8,10 +8,10 @@ import {Subvariant} from '../legend/legend.component';
 // import { Lineage } from '../../../../lib/models/lineage/lineage';
 // import { ActivityChartPoint, TherapeuticGroup } from '../../../../lib/models';
 import * as Vals from '../../../constants/ui-constants';
-import { ActivityChartPoint, Lineage, TherapeuticGroup } from 'projects/odp-covid19-ui-app/src/app/core/models';
-import { DisplayLineage } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-lineage';
-import { DisplayChartPoint } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-chart-point';
-import { Header } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/header';
+import { ActivityChartPoint, Lineage, TherapeuticGroup } from '../../../models/dtos'//'../../../models';
+import { DisplayLineage } from '../../../models/view-models/display-lineage';
+import { DisplayChartPoint } from '../../../models/view-models/display-chart-point';
+import { Header } from '../../../models/view-models/header';
 @Injectable({
   providedIn: 'root'
 })

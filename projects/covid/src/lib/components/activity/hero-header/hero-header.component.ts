@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { ConfigService } from '@labshare/base-ui-services';
-import { DatasetMetadataApiService } from 'projects/odp-covid19-ui-app/src/app/core/services/api/dataset-metadata-api/dataset-metadata-api.service';
+import { DatasetMetadataApiService } from '../../../services/api/dataset-metadata-api/dataset-metadata-api.service';
 import * as CONST from '../../../constants/api-constants';
 @Component({
   selector: 'app-hero-header',

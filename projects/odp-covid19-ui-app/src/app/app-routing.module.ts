@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import { MobileMenuComponent } from '@odp/shared';
 // import {HomepageComponent} from '../app/pages/homepage/homepage.component';
 // import {SummaryComponent} from '../app/pages/variant/summary/summary.component';
 // import {DatasetsComponent} from '../app/pages/variant/datasets/datasets.component';
@@ -21,8 +22,6 @@ import {AboutComponent} from './features/about/about.component';
 import { AssayComponent } from './features/assay/assay/assay.component';
 import { AssayOverviewComponent } from './features/assay/overview/overview.component';
 import { HomepageComponent } from './features/homepage/homepage.component';
-import { ActivityComponent } from './features/variant/activity/activity-layout/activity.component';
-import { MobileMenuComponent } from './shared/mobile-menu/mobile-menu.component';
 // import {HighlightsComponent} from './pages/highlights/highlights.component';
 // import {AnimalModelsComponent} from './pages/variant/animal-models/animal-models.component';
 // import {AnimalModelsSummaryComponent} from './pages/variant/animal-models/summary/animal-models-summary.component';
@@ -185,8 +184,7 @@ const routes: Routes = [
 
   {
     path: 'activity',
-    // See if below works because the file contains 2 modules
-    loadChildren: () => import('./modules/activity-route.module').then(m => m.ActivityRouteModule),
+    loadChildren: () => import('./lazy-routes/activity/activity-route.module').then(m => m.ActivityRouteModule),
 },
 
 

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import { Assay } from '../../../core/models/dtos/assay/assay';
-import { AssayApiService } from '../../../core/services/api/assay-api/assay-api.service';
+import { Assay, AssayApiService } from '@odp/covid';
 @Component({
   selector: 'app-assay',
   templateUrl: './assay.component.html',

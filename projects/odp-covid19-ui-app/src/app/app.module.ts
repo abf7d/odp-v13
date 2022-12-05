@@ -87,12 +87,12 @@ import {MatExpansionModule} from '@angular/material/expansion';
 // import {HighchartsChartModule} from 'highcharts-angular';
 // import {MonkeypoxComponent} from './pages/monkeypox/monkeypox.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { HeaderViewComponent } from './shared/header/header-view/header-view.component';
-import { MenuComponent } from './shared/menu/menu.component';
-import { MobileMenuComponent } from './shared/mobile-menu/mobile-menu.component';
-import { SharedModule } from './shared/shared.module';
+// import { HeaderViewComponent } from './shared/header/header-view/header-view.component';
+// import { MenuComponent } from './shared/menu/menu.component';
+// import { MobileMenuComponent } from './shared/mobile-menu/mobile-menu.component';
+// import { SharedModule } from './shared/shared.module';
 import { FeaturesModule } from './features/features.module';
-import { OdpCovid19UiModule } from './core/odp-covid19-ui.module';
+import { GraphQLModule } from '@odp/shared';
 
 // // const customThemes = [labshare];
 
@@ -137,7 +137,7 @@ let APP_CONF = {
   imports: [
     // SharedModule,
     
-    // FeaturesModule,
+    FeaturesModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -158,7 +158,7 @@ let APP_CONF = {
     // MatListModule,
     // MatButtonModule,
     // FormsModule,
-    OdpCovid19UiModule.forRoot(),
+    GraphQLModule.forRoot(),
     // // NgxDaterangepickerMd.forRoot(),
     // ClipboardModule,
     // MatSidenavModule,

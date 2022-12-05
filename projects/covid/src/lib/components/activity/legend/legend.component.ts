@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import { DisplayChartPoint } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-chart-point';
-import { DisplayLineage } from 'projects/odp-covid19-ui-app/src/app/core/models/view-models/display-lineage';
+import { DisplayChartPoint } from '../../../models/view-models/display-chart-point';
+import { DisplayLineage } from '../../../models/view-models/display-lineage';
 // import {DisplayLineage} from '../../../../services/models/display-lineage';
 import * as CONST from '../../../constants/ui-constants';
 // import {DisplayChartPoint} from '../../../../services/models/display-chart-point';

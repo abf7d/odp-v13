@@ -1,4 +1,6 @@
-import {ActivityChartPoint} from '@labshare/odp-covid19-ui';
+// import {ActivityChartPoint} from '@labshare/odp-covid19-ui';
+
+import { ActivityChartPoint } from "../dtos/activity/activity-chart";
 
 export interface Header {
   order: number;
